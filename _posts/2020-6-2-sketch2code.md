@@ -33,7 +33,7 @@ When I started thinking about what project to work on, first I think it has to b
 
 First, let's talk about the images. The images are engineered from turning the HTML to website interface. Then the CSS stylesheets is modified to change the border radius of HTML elements, and change the font and color of the elements. This is to make the sharp-looking website interface into a fuzzy-looking human sketch.
 
-![Figure 1]({{ site.baseurl }}/images/sketch2code/web2handdrawn.png "plate_notation")
+![Figure 1]({{ site.baseurl }}/images/sketch2code/web2handdrawn_crop.png "plate_notation")
 <p align="center">
     <font size="6"><b>Figure 1.</b> creating the sketch sample from webpage image</font>
 </p>
