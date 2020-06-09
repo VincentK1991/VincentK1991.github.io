@@ -35,7 +35,7 @@ First, let's talk about the images. The images are engineered from turning the H
 
 ![Figure 1]({{ site.baseurl }}/images/sketch2code/web2handdrawn_crop.png "plate_notation")
 <p align="center">
-    <font size="6"><b>Figure 1.</b> creating the sketch sample from webpage image</font>
+    <font size="4"><b>Figure 1.</b> creating the sketch sample from webpage image</font>
 </p>
 
 Second, the computer codes are written in a domain-specific language (DSL) that the dataset author created for this task specifically. The file is in the ".gui" format. This is really nice because it is more concise. This makes the training easier, and the result more interpretable. The downside is that we will need a complier to translate the ".gui" DSL to HTML code.  I was able to find the complier he used. So this step worked out well.
@@ -57,7 +57,7 @@ This architecture is not new, and has been used extensively in natural image map
 
 ![Figure 2]({{ site.baseurl }}/images/sketch2code/sketch2code.png "plate_notation")
 <p align="center">
-    <font size="6"><b>Figure 2.</b> model architecture</font>
+    <font size="4"><b>Figure 2.</b> model architecture</font>
 </p>
 
 # Training
@@ -84,7 +84,7 @@ Here I pair the attention weights representing the input context to the output t
 
 ![Figure 3]({{ site.baseurl }}/images/sketch2code/attention_val_image_188_Jun01_2020.png "plate_notation")
 <p align="center">
-    <font size="6"><b>Figure 3.</b> Visualizing the attention</font>
+    <font size="4"><b>Figure 3.</b> Visualizing the attention</font>
 </p>
 
 I include a few more of these examples in the appendix.
@@ -143,15 +143,15 @@ These two githubs implement the attention-based image captioning network archite
 
 ![Figure 4]({{ site.baseurl }}/images/sketch2code/attention_val_image_0_Jun01_2020.png "plate_notation")
 <p align="center">
-    <font size="6"><b>Figure supplement 1.</b> Visualizing the attention</font>
+    <font size="4"><b>Figure supplement 1.</b> Visualizing the attention</font>
 </p>
 
 ![Figure 5]({{ site.baseurl }}/images/sketch2code/attention_val_image_17_Jun01_2020.png "plate_notation")
 <p align="center">
-    <font size="6"><b>Figure supplement 2.</b> Visualizing the attention</font>
+    <font size="4"><b>Figure supplement 2.</b> Visualizing the attention</font>
 </p>
 
 ![Figure 6]({{ site.baseurl }}/images/sketch2code/attention_val_image_133_Jun01_2020.png "plate_notation")
 <p align="center">
-    <font size="6"><b>Figure supplement 3.</b> Visualizing the attention</font>
+    <font size="4"><b>Figure supplement 3.</b> Visualizing the attention</font>
 </p>
