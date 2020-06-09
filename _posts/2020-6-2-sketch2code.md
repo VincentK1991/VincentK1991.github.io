@@ -3,9 +3,8 @@ layout: post
 title: Sketch2code using Visual Attention & LSTM Decoder
 ---
 
- 
 <br>
-![Logos]({{ site.baseurl }}/images/sketch2code/test_example_crop.png "online ads")
+![Logos]({{ site.baseurl }}/images/sketch2code/test_example_crop.png "sketch2code")
 <p align="center">
     <font size="4"> </font>
 </p>
