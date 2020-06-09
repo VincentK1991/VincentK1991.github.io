@@ -5,7 +5,7 @@ title: Sketch2code using Visual Attention & LSTM Decoder
 
  
 <br>
-![Logos]({{ site.baseurl }}/images/sketch2code/test_example_crop.jpg "online ads")
+![Logos]({{ site.baseurl }}/images/sketch2code/test_example_crop.png "online ads")
 <p align="center">
     <font size="4"> </font>
 </p>
@@ -16,20 +16,27 @@ title: Sketch2code using Visual Attention & LSTM Decoder
 {:toc}
 # Introduction
 
-This blog post is a tutorial on using neural network to generate codes from images. Specifically, we are interested in how to create a AI model that interpret a hand sketch of graphical user interface and generate a corresponding HTML code. This is quite a complicated task, so in this work we will just focus on turning a simple wireframe sketch into a HTML layout. The model framework that we will use is **attention-baed image captioning** using resnet CNN as a encoder and LSTM recurrent neural network as a decoder. The simple intuition is that instead of generating a natural language captioning of the images, the model task is to generate a computer code.
+This blog post is a tutorial how to use machine learning to generate HTML codes from layuot images. Specifically, we are interested in how to create a neural network model that interpret a hand sketch of a simple web page design and generate a corresponding HTML code. In real world, this is quite a complicated task, so in this work we will just focus on turning a simple wireframe sketch into a HTML layout. The model framework that we will use is **attention-based image captioning** . The simple justification for using this architecture is that instead of generating a natural language, the model task is to generate a computer code that is a "caption" of an image.
 
 
-# Related Work
+# Background and Related Work
 
-Implementing a mock up design is a tedious, time-consuming process, and can create a bottleneck in a design development project. A considerable amount of time is spent on just creating a boiler plate HTML codes. Therefore, there is an active area of research on how to use machine learning to assist in this process. Notably, [pix2code](https://arxiv.org/pdf/1705.07962.pdf) by Tony Beltramelli combines both computer vision method and NLP method to do image captioning.
+Implementing a mock up design is a tedious, time-consuming process, and can create a bottleneck in a design development project. A considerable amount of time is spent on just creating a boiler plate HTML codes. Therefore, there is an active area of research on how to use machine learning to assist in this process. Notably, [pix2code](https://arxiv.org/pdf/1705.07962.pdf) by Tony Beltramelli combines both computer vision method and NLP method to translate image to codes for mobile app interfaces and web pages. 
+
+In a broader context NLP has seen tremendous progress in recent year thanks to the advent of attention mechanism and transformer architecture. I'm now seeing interdisciplinary bridging of NLP and other areas of artificial intelligence/mechine learning, such as computer vision or deep learning for speech/audios. This kind of work called **Multimodal Machine Learning** aims at analyzing multiple information modalities. Image captioning is one good example here.
 
 # Getting the dataset
 
 ## searching for the right data
 
-When I started thinking about what project to work on, first I searched for what dataset is available. Ideally, I'd want to have a lot of paired image/code samples. It is surprisingly quite difficult to find ones. Nevertheless, thanks the generosity of the pix2code author, I was able to find on the internet part of the open-source dataset he used for his work. The dataset consists of 1700 sketch-like images and their correspondingly codes. 
+When I started thinking about what project to work on, first I think it has to be something about multimodal machine learning, and the sketch2code comes to mind. Then I searched for what dataset is available. Ideally, I'd want to have a lot of paired image/code samples. It is surprisingly quite difficult to find ones. Nevertheless, thanks the generosity of the pix2code author, I was able to find on the internet the open-source dataset he used for his work. The dataset I have consists of 1700 sketch-like images and their correspondingly codes.
 
 First, let's talk about the images. The images are engineered from turning the HTML to website interface. Then the CSS stylesheets is modified to change the border radius of HTML elements, and change the font and color of the elements. This is to make the sharp-looking website interface into a fuzzy-looking human sketch.
+
+![Figure 1]({{ site.baseurl }}/images/sketch2code/web2handdrawn.png "plate_notation")
+<p align="center">
+    <font size="6"><b>Figure 1.</b> creating the sketch sample from webpage image</font>
+</p>
 
 Second, the computer codes are written in a domain-specific language (DSL) that the dataset author created for this task specifically. The file is in the ".gui" format. This is really nice because it is more concise. This makes the training easier, and the result more interpretable. The downside is that we will need a complier to translate the ".gui" DSL to HTML code.  I was able to find the complier he used. So this step worked out well.
 
@@ -48,9 +55,9 @@ Previous works by [Tony Beltramelli](https://github.com/tonybeltramelli) and [As
 This architecture is not new, and has been used extensively in natural image maptioning task. What I'm doing here is to leverage it for sketch2code task.
 
 
-![Figure 1]({{ site.baseurl }}/images/sketch2code/sketch2code.png "plate_notation")
+![Figure 2]({{ site.baseurl }}/images/sketch2code/sketch2code.png "plate_notation")
 <p align="center">
-    <font size="2"><b>Figure 1.</b> model architecture</font>
+    <font size="6"><b>Figure 2.</b> model architecture</font>
 </p>
 
 # Training
@@ -75,9 +82,9 @@ The training was performed on 1 Tesla P-100 GPU. Each epoch took about 3 minutes
 
 Here I pair the attention weights representing the input context to the output token (shown as text above). There are a few things to note here. First is that the attention moves from top of the page to bottom of the page, as the code describes from the top to the bottom of website page. Second is that the attention for the token "row" often focuses on the space inside the wireframe box, where as the the token "" focuses on the perimeter around the box.
 
-![Figure 1]({{ site.baseurl }}/images/sketch2code/attention_val_image_188_Jun01_2020.png "plate_notation")
+![Figure 3]({{ site.baseurl }}/images/sketch2code/attention_val_image_188_Jun01_2020.png "plate_notation")
 <p align="center">
-    <font size="2"><b>Figure 2.</b> Visualizing the attention</font>
+    <font size="6"><b>Figure 3.</b> Visualizing the attention</font>
 </p>
 
 I include a few more of these examples in the appendix.
@@ -116,6 +123,9 @@ Another thing to try in the future is to adapt a transformer model which has bee
 
 # Citation
 
+[My Github]()
+here is my Github repo on this work.
+
 [pix2code](https://github.com/tonybeltramelli/pix2code)
 This work really influences a lot of subsequent work on the user interface to code by neural network. I use the data, and the compiler from this github.
 
@@ -131,17 +141,17 @@ These two githubs implement the attention-based image captioning network archite
 
 # Appendix
 
-![Figure 1]({{ site.baseurl }}/images/sketch2code/attention_val_image_0_Jun01_2020.png "plate_notation")
+![Figure 4]({{ site.baseurl }}/images/sketch2code/attention_val_image_0_Jun01_2020.png "plate_notation")
 <p align="center">
-    <font size="2"><b>Figure supplement 1.</b> Visualizing the attention</font>
+    <font size="6"><b>Figure supplement 1.</b> Visualizing the attention</font>
 </p>
 
-![Figure 1]({{ site.baseurl }}/images/sketch2code/attention_val_image_17_Jun01_2020.png "plate_notation")
+![Figure 5]({{ site.baseurl }}/images/sketch2code/attention_val_image_17_Jun01_2020.png "plate_notation")
 <p align="center">
-    <font size="2"><b>Figure supplement 2.</b> Visualizing the attention</font>
+    <font size="6"><b>Figure supplement 2.</b> Visualizing the attention</font>
 </p>
 
-![Figure 1]({{ site.baseurl }}/images/sketch2code/attention_val_image_133_Jun01_2020.png "plate_notation")
+![Figure 6]({{ site.baseurl }}/images/sketch2code/attention_val_image_133_Jun01_2020.png "plate_notation")
 <p align="center">
-    <font size="2"><b>Figure supplement 3.</b> Visualizing the attention</font>
+    <font size="6"><b>Figure supplement 3.</b> Visualizing the attention</font>
 </p>
