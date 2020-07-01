@@ -23,7 +23,7 @@ footer-links:
   flickr:
   github: VincentK1991
   instagram:
-  linkedin: vincent-kieuvongngam-2891b270
+  linkedin:
   pinterest:
   rss: # just type anything here for a working RSS icon
   twitter: 
@@ -71,26 +71,6 @@ kramdown:
 # Set the Sass partials directory, as we're using @imports
 sass:
   style: :expanded # You might prefer to minify using :compressed
-
-collections:
-  tutorials:
-    output: true
-
-defaults:
-  -
-    scope:
-      path: ""
-      type: "posts"
-    values:
-      author: VK 
-      layout: post
-  -
-    scope:
-      path: ""
-      type: "tutorials"
-    values:
-      author: VK 
-      layout: post      
 
 # Use the following plug-ins
 gems:
