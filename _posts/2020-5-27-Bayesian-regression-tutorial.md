@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Bayesian regression tutorial with PyMC3
+blog: tutorial
 ---
 
 <br>
@@ -136,7 +137,7 @@ x1 = np.random.normal(loc=10, scale=3, size=100)
 noise = np.random.normal(loc=0, scale=0.1, size=100)
 beta1 =  5
 y1 = beta1*x1 + noise
-data = pd.DataFrame({'x1': center(x1),'y1': y1})
+data = pd.DataFrame({'x1': x1,'y1': y1})
 {% endhighlight %}	
 </p>
 </details>
@@ -232,7 +233,7 @@ There are 4 main types of confounders. Here we're going to talk about 3 of them.
 
 ### mediator (the pipe)
 
-This is a causal process where our independent variable x1 causes some confound x2 that in turn causes y (x1 itself doesn't cause y). You have to include this type of confound in the model.
+This is a causal process where our independent variable x1 causes some confound x2 that in turn causes y (x1 itself doesn't cause y). You have to include this type of confound in the model (this technique is known as controlling for a variable).
 
 here is the sample data.
 
@@ -253,7 +254,7 @@ data = pd.DataFrame({'x1': x1,'x2': x2,'y1': y1})
 </p>
 </details>
 
-And here is how to deal with it.
+And here is one way to deal with it. You control for a confounding variable.
 
 {% highlight python %}
 with pm.Model() as pipe_confound:
@@ -281,7 +282,7 @@ with pm.Model() as pipe_confound:
     <font size="2"><b>Figure 6.</b> regression control for pipe confound </font>
 </p>
 
-Or if you want to model the causal process how x1 generate x2 and x2 generate y, you can do a chain of bayesian regressions. like this.
+Another way to do it is to think about generating process. You want to model the causal process how x1 generate x2 and x2 generate y. What you'd want is to do a chain of bayesian regressions. like this.
 
 ![Figure 7]({{ site.baseurl }}/images/pymc3tutorial/graph_the_pipe.png "plate_notation")
 <p align="center">

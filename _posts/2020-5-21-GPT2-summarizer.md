@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Summarize COVID-19 literature with GPT2
+blog: blog
 ---
 
 <br>
