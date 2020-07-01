@@ -10,7 +10,9 @@ I am a graduate fellow working towards a PhD degree in biophysics at the Rockefe
 
 I completed my undegrad in biology at Massachusetts Institute of Technology (MIT) in 2015. 
 
-In my free time, I wrote a simple object-oriented python code to calculate how the change in electoral system in Thailand will influence the outcome of 2019 Thailand general election. Additionally, I try to analyze what direction Thai politics might undergo in near future as a result of this change. Please check out the [Blog](https://vincentk1991.github.io/)  to read about it.
+In my free time, I work on various topics in deep learning, mostly NLP or connection between NLP and computer vision. For example, I wrote a deep learning algorithm based on OpenAI-GPT2 and BERT to perform domain-specific summarization. I also work on sketch2code as well as content-based image retrieval.
+
+I am also interested in probabilistic programming, particularly for Bayesian inference. I wrote a tutorial on probabilitic programming, and Bayesian regression implemented in Pymc3.
 
 ### Contact me
 
