@@ -3,19 +3,23 @@ layout: default
 ---
 
 <div class="posts">
+<<<<<<< HEAD
   {% for post in paginator.posts %}
     {% if post.blog != 'blog' %}
     {% else %}
       <article class="post">
+=======
+  {% for post in site.posts %}
+    <article class="post">
+>>>>>>> parent of ed0d5cc... test multiple blogs
 
-        <h1><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h1>
+      <h1><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h1>
 
-        <div class="entry">
-          {{ post.excerpt }}
-        </div>
+      <div class="entry">
+        {{ post.excerpt }}
+      </div>
 
-        <a href="{{ site.baseurl }}{{ post.url }}" class="read-more">Read More</a>
-      </article>
-    {% endif %}
+      <a href="{{ site.baseurl }}{{ post.url }}" class="read-more">Read More</a>
+    </article>
   {% endfor %}
 </div>
