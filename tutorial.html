@@ -3,7 +3,7 @@ layout: default
 ---
 
 <div class="posts">
-  {% for post in site.posts %}
+  {% for post in paginator.posts %}
   	{% if post.blog == 'blog' %}
     	<article class="post">
 
