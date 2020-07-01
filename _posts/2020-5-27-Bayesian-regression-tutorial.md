@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Bayesian regression tutorial with PyMC3 bla bla
+title: Bayesian regression tutorial with PyMC3 10 33
 ---
 
 <br>
