@@ -23,7 +23,7 @@ footer-links:
   flickr:
   github: VincentK1991
   instagram:
-  linkedin: virapat-kieuvongngam-2891b270
+  linkedin: virapat-kieuvongngam
   pinterest:
   rss: # just type anything here for a working RSS icon
   twitter: 
@@ -73,9 +73,9 @@ sass:
   style: :expanded # You might prefer to minify using :compressed
 
 collections:
-  stories:
+  tutorials:
     output: true
-    
+
 
 # Use the following plug-ins
 gems:
