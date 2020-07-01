@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Tutorials
-permalink: /Tutorial/
+permalink: /tutorial/
 ---
 This page groups a set of work that I created as a learning materials, mainly to teach myself, other  interested readers, and as a repository for me to look up at leter time. Setting apart from the project, the tutorials are meant to be pedagogical, rather than to showcase the work. The subjects that I am most interested in include **machine learning**, **deep learning**, **Bayesian inference**.
 
