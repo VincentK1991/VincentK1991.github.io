@@ -1,7 +1,7 @@
 ---
-layout: default
+layout: tutorial
 category: tutorial
-title: Bayesian regression tutorial with PyMC3 test
+title: Bayesian regression tutorial with PyMC3 test test
 description: "explore what probabilistic programming can do with Pymc3"
 ---
 
