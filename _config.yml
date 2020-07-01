@@ -23,7 +23,7 @@ footer-links:
   flickr:
   github: VincentK1991
   instagram:
-  linkedin:
+  linkedin: virapat-kieuvongngam-2891b270
   pinterest:
   rss: # just type anything here for a working RSS icon
   twitter: 
@@ -71,6 +71,11 @@ kramdown:
 # Set the Sass partials directory, as we're using @imports
 sass:
   style: :expanded # You might prefer to minify using :compressed
+
+collections:
+  stories:
+    output: true
+    
 
 # Use the following plug-ins
 gems:

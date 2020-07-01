@@ -1,6 +1,7 @@
 ---
-layout: post
+layout: tutorial
 title: Heterogenous effects estimation using Causal Tree Analysis
+description: How to use random forest regression to find out heterogeneity in data
 ---
 
 <br>
