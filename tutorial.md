@@ -42,7 +42,7 @@ I provide a Colab Notebook for a simple transfer learning. For illustration, I t
 
 ---
 
-# [Deploying Web Application on AWS]()
+# [Deploying Web Application on AWS](https://vincentk1991.github.io/Deploy-AWS-dashboard/)
 
 A simple tutorial on how to deploy a web application on Amazon Web Services. See the final product [here](http://streeteasy-dashboard-aws-dev.us-west-2.elasticbeanstalk.com/)
 
