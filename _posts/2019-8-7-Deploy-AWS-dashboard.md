@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Deploying an Interactive Visualization Without Tears: A Dashboard on Amazon Web Services
+title: "Deploying an Interactive Visualization Without Tears: A Dashboard on Amazon Web Services"
 ---
 
 <br>
