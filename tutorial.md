@@ -42,6 +42,12 @@ I provide a Colab Notebook for a simple transfer learning. For illustration, I t
 
 ---
 
+# [Deploying Web Application on AWS]()
+
+A simple tutorial on how to deploy a web application on Amazon Web Services. See the final product [here](http://streeteasy-dashboard-aws-dev.us-west-2.elasticbeanstalk.com/)
+
+---
+
 # [Survival Analysis](https://github.com/VincentK1991/IBM_attrition_HR/blob/master/IBM_attrition_Apr03_2019.ipynb)
 
 This is a learning material on survival analysis. I study the employee attrition model, i.e. looking at what factors make employee leave a company. I discuss a few concepts pertaining to survival analysis, such as censoring, hazard, and lifetime. Most of the work is done using a package for survival analysis called "lifelines".
