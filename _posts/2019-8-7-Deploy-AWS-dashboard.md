@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Deploying a Dashboard on Amazon Web Services Without Tears
+title: Deploying a Dashboard on Amazon Web Services
 ---
 
 <br>
@@ -11,7 +11,7 @@ This post will be all about how to put your data out into the light by publishin
 
 ![Figure 1]({{ site.baseurl }}/images/streeteasy_webapp.png "webapp")
 <p align="center">
-    <font size="2"><b>Figure 1.</b> my webapp breaking down the NYC rental cost.</font>
+    <font size="4"><b>Figure 1.</b> my webapp breaking down the NYC rental cost.</font>
 </p>
 
 # What is AWS Elastic beanstalk?
