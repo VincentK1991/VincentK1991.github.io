@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Deploying dashboard on Amazon Web service (without tear)
+title: Deploying a Dashboard on Amazon Web Services Without Tears
 ---
 
 <br>
