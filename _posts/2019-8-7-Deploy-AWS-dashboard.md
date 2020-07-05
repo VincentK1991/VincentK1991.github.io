@@ -16,7 +16,9 @@ This post will be all about how to put your data out into the light by publishin
 
 # What is AWS Elastic beanstalk?
 
-AWS is a cloud computing platform and AWS Elastic Beanstalk is an orchestration service that handles web application deployment. I picked AWS Elastic Beanstalk because it automatically abstracts away many of the complexities associated with hosting a dashboard such as managing docker containers with kubernetes. Therefore, it will allow you to spend more time thinking about content and visualization. The two key files we need are the application.py file and the requirements.txt file. The application.py file runs the main code for your web app. The application.py file will be different for different application. For my purpose, I use [Dash](https://dash.plotly.com/introduction) to create interactive data visualization. This blog post will focus on the deployment aspect assuming that you have already created a functional application.py file.
+AWS is a cloud computing platform and AWS Elastic Beanstalk is an orchestration service that handles web application deployment. I picked AWS Elastic Beanstalk because it automatically abstracts away many of the complexities associated with hosting a dashboard such as managing docker containers with kubernetes. Therefore, it will allow you to spend more time thinking about content and visualization. 
+
+The two key files we need are the application.py file and the requirements.txt file. The application.py file runs the main code for your web app. The application.py file will be different for different application. For my purpose, I use [Dash](https://dash.plotly.com/introduction) to create interactive data visualization. This blog post will focus on the deployment aspect assuming that you have already created a functional application.py file.
 
 
 # How to host csv file
