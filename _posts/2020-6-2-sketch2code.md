@@ -95,7 +95,7 @@ I then compile the DSL code to HTML. Here are some of the results.
 <figure class="half">
 	<img src="/images/sketch2code/image0.png">
 	<img src="/images/sketch2code/HTML_0.png">
-	<figcaption><b>Figure 3.</b> addition of 2 random variables</figcaption>
+	<figcaption><b>Figure 4.</b> Comparing the sketch to the generated HTML</figcaption>
 </figure>
 
 Not all are successful. Here is one where it got wrong in an interesting way, namely instead of making 3 box layout. It makes 4 layout.
@@ -103,7 +103,7 @@ Not all are successful. Here is one where it got wrong in an interesting way, na
 <figure class="half">
 	<img src="/images/sketch2code/image133.png">
 	<img src="/images/sketch2code/HTML_133.png">
-	<figcaption><b>Figure 1.</b> addition of 2 random variables</figcaption>
+	<figcaption><b>Figure 5.</b> Comparing the sketch to the generated HTML</figcaption>
 </figure>
 
 Finally, it's time for a real trial. I sketched a wireframe layout on a sheet of paper, and took photo of the paper and send the photo through the model. Here is the HTML it made.
@@ -111,7 +111,7 @@ Finally, it's time for a real trial. I sketched a wireframe layout on a sheet of
 <figure class="half">
 	<img src="/images/sketch2code/test_pic_June06_2020_rotate.jpg">
 	<img src="/images/sketch2code/HTML_test_0.png">
-	<figcaption><b>Figure 1.</b> addition of 2 random variables</figcaption>
+	<figcaption><b>Figure 6.</b> Turning a Hand-sketch photo to HTML code</figcaption>
 </figure>
 
 # Final thought
