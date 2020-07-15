@@ -175,6 +175,7 @@ I realize at the end of writing that this work is probably going to be a part of
 <i>packages you'd need </i>
 </summary>
 <p>
+{% highlight python %}
 
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -192,6 +193,7 @@ pyro.set_rng_seed(1)
 pyro.enable_validation(True)
 from pyro.infer import MCMC, NUTS
 from pyro.nn import PyroModule, PyroSample
+
 {% endhighlight %}	
 </p>
 </details>
@@ -401,6 +403,7 @@ ax.legend(loc='best')
 plt.title('Bayesian estimation of the adstock function')
 plt.xlabel('days')
 plt.ylabel('weight')
+
 {% endhighlight %}
 
 
@@ -409,6 +412,7 @@ plt.ylabel('weight')
 Finally, we can write a hierarchical model that samples the adstock parameters that in turns specify the adstock kernel. We will then again fit the model using Hamiltonian Monte Carlo.
 
 {% highlight python %}
+
 def bayesian_model_adstock(x_data,y_data,max_lag=15,fit_Hill=False):
   lag = torch.tensor(np.arange(0, max_lag + 1))
   # here instead of sampling weights, we will sample the adstock parameters
@@ -442,6 +446,7 @@ mcmc_bayes = MCMC(kernel_bayes, num_samples=1000, warmup_steps=200)
 mcmc_bayes.run(carryover_X,carryover_sat,max_lag=10,fit_Hill=True)
 
 hmc_samples = {k: v.detach().cpu().numpy() for k, v in mcmc_bayes.get_samples().items()}
+
 {% endhighlight %}
 
 
