@@ -4,8 +4,9 @@ title: Discoverying Advertising Adstock with Probabilistic Programming in Pyro
 ---
 
 <br>
-<p align="center">
 ![Logos]({{ site.baseurl }}/images/pyro_adstock/meme.jpg "online ads")
+<p align="center">
+    <font size="4"> </font>
 </p>
 <br>
 <br>
@@ -52,7 +53,7 @@ I found most active community of probabilistic programming in **R** or **Stan**.
 <br>
 
 |  | Pymc3 | Pyro |
-|:-------|:--------:|:---------:|
+|:-------|:--------|:---------|
 | community | pymc3 has been around longer and there are a lot more people using it. So you're more likely to get help. | Pyro is newer. So the community is smaller. But it's growing.|
 | backend | Pymc3 uses theano backend. Theano has already been deprecated. | Pyro uses Pytorch backend. Pytorch is no. 1 package for deep learning. This alone is a good enough reason for me.|
 | debugging | Theano documentation is not as good as Pytorch. I find it harder to debug, or understand what errors are telling me. | I'm more familiar with Pytorch. and the documentation is very well maintained. The error messages make sense. |
@@ -167,6 +168,14 @@ In all cases, we specify maximum lag time to be the actual maximum lag time that
 In the end, I feel that choosing a good starting prior well will really help you get a good estimate. This is because the complex model is numerically unstable, and can be very sensitive to priors. This is where domain expertise can comes into the picture. Experts would probably have a sense about what plausible ranges of values are for the adstock and saturation. 
 
 I realize at the end of writing that this work is probably going to be a part of a larger work on media mixed model. I'll be working on a simplistic marketing attribution model next. So stay tune.
+
+# Citation
+
+- [paper](https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/46001.pdf)
+This is the paper by Google that outline Bayesian inference for adstock function. The work is done in Stan though. So I didn't follow the method line-by-line in Pyro.
+
+- [Pyro](http://pyro.ai/)
+This is the main Pyro website that keep the documentation and a few example codes.
 
 # Appendix
 
