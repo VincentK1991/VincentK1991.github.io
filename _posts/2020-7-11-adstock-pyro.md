@@ -6,7 +6,6 @@ title: Discoverying Advertising Adstock with Probabilistic Programming in Pyro
 <br>
 <p align="center">
 ![Logos]({{ site.baseurl }}/images/pyro_adstock/meme.jpg "online ads")
-<font size="4"> </font>
 </p>
 <br>
 <br>
@@ -30,7 +29,7 @@ Let's formulate the problem. We start with the time series of spending&sales dat
 Mathematically, the lag period is represented as a delayed function and the memory retention is a decay function. This function, so-called **adstock function**, is best understood as a kernel or a density function that smooth the spending over time. 
 
 
-If we think that we are in the spending regime where the ads can saturate the market, we might need to quantify the diminishing returns on ads. Mathematically, this is as if the spending effect after the adstock function is passed through a non-linear function such as a logistic function, where the saturation effect is applied on top of the adstock effect.
+If we think that we are in the spending regime where the ads can saturate the market, we might need to quantify the diminishing returns on ads. Mathematically, this is as if the spending effect after the adstock function is passed through a non-linear function such as a logistic function, where the saturation effect is applied on top of the adstock effect. In this case, we will use Hill equation function as our saturation function. Hill equation has been used mostly in pharmacology for drug response effect. Nevertheless, the equation provides a general non-linear response curve applicable to our work.
 
 To get a clearer picture, you can see the data generating code in the appendix subsection B and C as well as figure 1, 2, and 3.
 
@@ -53,7 +52,7 @@ I found most active community of probabilistic programming in **R** or **Stan**.
 <br>
 
 |  | Pymc3 | Pyro |
-|:-------|:--------:|---------:|
+|:-------|:--------:|:---------:|
 | community | pymc3 has been around longer and there are a lot more people using it. So you're more likely to get help. | Pyro is newer. So the community is smaller. But it's growing.|
 | backend | Pymc3 uses theano backend. Theano has already been deprecated. | Pyro uses Pytorch backend. Pytorch is no. 1 package for deep learning. This alone is a good enough reason for me.|
 | debugging | Theano documentation is not as good as Pytorch. I find it harder to debug, or understand what errors are telling me. | I'm more familiar with Pytorch. and the documentation is very well maintained. The error messages make sense. |
