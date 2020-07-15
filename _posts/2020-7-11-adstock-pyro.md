@@ -4,9 +4,9 @@ title: Discoverying Advertising Adstock with Probabilistic Programming in Pyro
 ---
 
 <br>
-![Logos]({{ site.baseurl }}/images/pyro_adstock/meme.jpg "online ads")
 <p align="center">
-    <font size="4"> </font>
+![Logos]({{ site.baseurl }}/images/pyro_adstock/meme.jpg "online ads")
+<font size="4"> </font>
 </p>
 <br>
 <br>
