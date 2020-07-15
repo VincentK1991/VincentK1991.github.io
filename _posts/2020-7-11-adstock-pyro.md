@@ -4,7 +4,7 @@ title: Discoverying Advertising Adstock with Probabilistic Programming in Pyro
 ---
 
 <br>
-![Logos]({{ site.baseurl }}/images/pymc3tutorial/meme.jpg "online ads")
+![Logos]({{ site.baseurl }}/images/pyro_adstock/meme.jpg "online ads")
 <p align="center">
     <font size="4"> </font>
 </p>
@@ -50,14 +50,17 @@ First before we go into the implementation details, let's discuss probabilistic 
 
 I found most active community of probabilistic programming in **R** or **Stan**. This is probably because academics use them. However, there are growing communities in Python as well, mostly around packages **Pymc3** or **Pyro**.
  There are a few pros and cons for using Pymc3 or Pyro.
+<br>
 
 |  | Pymc3 | Pyro |
-|-------|--------|---------|
+|:-------|:--------:|---------:|
 | community | pymc3 has been around longer and there are a lot more people using it. So you're more likely to get help. | Pyro is newer. So the community is smaller. But it's growing.|
 | backend | Pymc3 uses theano backend. Theano has already been deprecated. | Pyro uses Pytorch backend. Pytorch is no. 1 package for deep learning. This alone is a good enough reason for me.|
 | debugging | Theano documentation is not as good as Pytorch. I find it harder to debug, or understand what errors are telling me. | I'm more familiar with Pytorch. and the documentation is very well maintained. The error messages make sense. |
 | visualization | Pymc3 has its own visualization. It can plot traces, computational graphs, distribution, etc. | Pyro currently does not have visualization built-in. I use matplotlib and seaborn. |
 | prospect | tensorflow-backended Pymc4 will replace Pymc3 at some point soon. So Pymc3's fate is up in the air. Tensorflow is a very good package for deep learning up there with Pytorch. So this is very exciting. | Pyro is too new. but definitely Pytorch is here to stay. |
+
+<br>
 
 The past log I did a Bayesian regression tutorial in Pymc3. So in this blog I'll try Pyro. All the packages used in this work is specified in the appendix subsection A.
 
@@ -75,7 +78,7 @@ This is what the spending and the sales (subscriptions) looks like for 90 days.
 
 ![Figure 1]({{ site.baseurl }}/images/pyro_adstock/spending_sales.png "spending")
 <p align="center">
-    <font size="2"><b>Figure 1.</b> generated spending and sales data time series</font>
+    <font size="4"><b>Figure 1.</b> generated spending and sales data time series</font>
 </p>
 
 One obvious thing to notice is that the peak spending and the peak sales are not aligned. The sales lags behind spending by a few days. The trough also lags behind. This is due to the adstock effect, both the delay and the retention effect. Another thing to note is that the spending effect is not linear. Around day 40, the peak ads spending does not result in proportionally higher sales. This is the saturation effect.
@@ -84,14 +87,14 @@ Below is what the adstock function looks like visually. This means spending at d
 
 ![Figure 2]({{ site.baseurl }}/images/pyro_adstock/kernel.png "spending")
 <p align="center">
-    <font size="2"><b>Figure 2.</b> adstock showing the delay and the retention effect</font>
+    <font size="4"><b>Figure 2.</b> adstock showing the delay and the retention effect</font>
 </p>
 
 Also here is the saturation function. I use Hill equation here as the saturation function. This allows me to specify the slope, the half-saturation point and the saturation value. But other sigmoid-shape functions should work also. 
 
 ![Figure 3]({{ site.baseurl }}/images/pyro_adstock/saturation_function.png "spending")
 <p align="center">
-    <font size="2"><b>Figure 3.</b> saturation function</font>
+    <font size="4"><b>Figure 3.</b> saturation function</font>
 </p>
 
 # Results
@@ -104,7 +107,7 @@ I trained the model for 5000 iterations. The results shown below are the weights
 
 ![Figure 4 ]({{ site.baseurl }}/images/pyro_adstock/neural_net.png "spending")
 <p align="center">
-    <font size="2"><b>Figure 4.</b> adstock kernel compared to the fitted models</font>
+    <font size="4"><b>Figure 4.</b> adstock kernel compared to the fitted models</font>
 </p>
 
 ## 2. Using Bayesian inference to estimate the adstock effect
@@ -116,7 +119,7 @@ The code for this part is included in the appendix subsection E.
 
 ![Figure 5 ]({{ site.baseurl }}/images/pyro_adstock/Bayesian_adstock.png "spending")
 <p align="center">
-    <font size="2"><b>Figure 5.</b> Bayesian inference of the adstock function. The shaded area represents 90% credible interval.</font>
+    <font size="4"><b>Figure 5.</b> Bayesian inference of the adstock function. The shaded area represents 90% credible interval.</font>
 </p>
 
 To get a better estimate, we'd probably need more data, or provides a better regularization of the adstock, which leads us to the next section.
@@ -135,7 +138,7 @@ In this section, I specified the parameters of both the adstock and the saturati
 
 ![Figure 6 ]({{ site.baseurl }}/images/pyro_adstock/bayes_adstock_parameter.png "spending")
 <p align="center">
-    <font size="2"><b>Figure 6.</b> Bayesian inference of the adstock and saturation function. The histogram shows the distribution of the parameters.</font>
+    <font size="4"><b>Figure 6.</b> Bayesian inference of the adstock and saturation function. The histogram shows the distribution of the parameters.</font>
 </p>
 
 Here we can say that the inference captures the parameters for the adstock correctly. But the saturation function still has the wrong shape. This is not too disappointing as I said earlier that the saturation function is much harder to recover. 
@@ -144,14 +147,14 @@ Now let's turn our attention to the adstock function estimate. Comparing the fig
 
 ![Figure 7 ]({{ site.baseurl }}/images/pyro_adstock/bayes_full_adstock.png "spending")
 <p align="center">
-    <font size="2"><b>Figure 7.</b> Bayesian inference of the adstock function parameters.</font>
+    <font size="4"><b>Figure 7.</b> Bayesian inference of the adstock function parameters.</font>
 </p>
 
 Finally, we look at the saturation function.
 
 ![Figure 8 ]({{ site.baseurl }}/images/pyro_adstock/bayes_full_saturation.png "spending")
 <p align="center">
-    <font size="2"><b>Figure 8.</b> Bayesian inference of the saturation function.</font>
+    <font size="4"><b>Figure 8.</b> Bayesian inference of the saturation function.</font>
 </p>
 
 Here I show the diminshing return, and it has the correct shape. However, the prediction gets the saturation value off. The ground truth value is higher. 
