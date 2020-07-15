@@ -258,7 +258,6 @@ def get_hill_function(x, ec, slope):
   if any(x < 0):
       raise ValueError("x must be > 0.")
   return 1/(1+ (x/ec)**-slope)
-
 {% endhighlight %}	
 </p>
 </details>
@@ -448,5 +447,4 @@ mcmc_bayes.run(carryover_X,carryover_sat,max_lag=10,fit_Hill=True)
 hmc_samples = {k: v.detach().cpu().numpy() for k, v in mcmc_bayes.get_samples().items()}
 
 {% endhighlight %}
-
 
