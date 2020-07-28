@@ -4,7 +4,7 @@ title: Modeling attribution from spending & survey data with Probabilistic Progr
 ---
 
 <br>
-![Logos]({{ site.baseurl }}/images/pymc3tutorial/meme.jpg "online ads")
+![Logos]({{ site.baseurl }}/images/numpyro_attribution/meme.jpg "online ads")
 <p align="center">
     <font size="4"> </font>
 </p>
