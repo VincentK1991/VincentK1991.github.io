@@ -10,8 +10,9 @@ I am a graduate fellow working towards a PhD degree in biophysics at the Rockefe
 
 I completed my undegrad in biology at Massachusetts Institute of Technology (MIT) in 2015. 
 
-In my free time, I wrote a simple object-oriented python code to calculate how the change in electoral system in Thailand will influence the outcome of 2019 Thailand general election. Additionally, I try to analyze what direction Thai politics might undergo in near future as a result of this change. Please check out the [Blog](https://vincentk1991.github.io/)  to read about it.
+In my free time, explored various topics in machine learning and data analysis. These include [tutorials](https://vincentk1991.github.io/tutorial/) on neural network and Bayesian statistics written as blogs, [COVID-19 summarizer](https://vincentk1991.github.io/GPT2-summarizer/) from GPT-2, and a [program](https://vincentk1991.github.io/Hello-World/) analyzing the complicated electoral system change in Thailand General election 2019, what what it might mean for Thai politics.
 
 ### Contact me
 
+[vkieuvongngam@gmail.com](mailto:vkieuvongngam@gmail.com)
 [vkieuvongn@rockefeller.edu](mailto:vkieuvongn@rockefeller.edu)
