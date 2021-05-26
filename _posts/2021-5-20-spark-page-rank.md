@@ -96,7 +96,7 @@ Then what we need are all the questioner ids and the answerer ids. these are pai
 
 <details>
 <summary>
-<i>boiler plate </i>
+<i>querying data from Google Cloud Bigquery </i>
 </summary>
 <p>
 {% highlight scala %}
