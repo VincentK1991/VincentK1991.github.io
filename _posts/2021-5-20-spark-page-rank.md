@@ -27,11 +27,11 @@ I will explore using Page Rank algorithm to rank user contribution and will see 
 
 The stackoverflow questions and answers are id-ed and are publicly available on Google Cloud Big Query at practically zero cost. To get access, you'd need to have google cloud account. Go to BigQuery pannel and find the table `bigquery-public-data:stackoverflow.posts_questions`. This is the table that contains questions posted on Stackoverflow from November 2016 to the present. As of May 2021, we have about 20M rows. There are a few ways we can work with the data, we can either download the table out to csv file, or we can connect our spark application to bigquery and read the data through the network connection. I will choose the second option. But to just visualize the data first, we can query out a few rows. BigQuery support SQL-like query commands. So, in the editor, type 
 
-```
+{% highlight python %}
 SELECT *
 FROM `bigquery-public-data.stackoverflow.posts_questions`
 LIMIT 10
-```
+{% endhighlight %}
 
 This will print out 10 rows from 20M rows. We can save the results in csv files. But this is no need because we will connect to the table through spark anyway.
 
