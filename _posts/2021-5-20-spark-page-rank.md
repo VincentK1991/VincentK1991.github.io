@@ -235,5 +235,6 @@ The set up that I have here is useful for beginner who wants to try spark locall
 
 
 2. Connect Google-BigQuery to Spark
+
 To connect spark to Bigquery, you need to have a credential. refere [here](https://cloud.google.com/bigquery/docs/authentication/service-account-file) on how to obtain credentials for your project.
 
