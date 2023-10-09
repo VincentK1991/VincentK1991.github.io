@@ -46,7 +46,7 @@ score = 1/(1+n) where n is the rank from 0 to 19. So the highest score for one i
 
 ## 2.2 the machine learning task
 
-We decided to do supervised learning approach to tackle the problem. we divided the dataset into the holdout validation set, and and the training set. After trying different approaches ranging from nearest neighbors, randomforest, and regularized regression, we dicided to present only the result from the regularized regression. Chosen as a baseline for memory-based lazy learning, Nearest neighbors does not perform as well as other two as it tends to suffer from the curse of dimensionality. While randomforest may perform well, the fitting takes a really long time. Regularized regression is fastest and yields a reasonably high accuracy score. So in the following paragraphs, we will talk only about the work done by regularized regression. The python codes for this work is hosted on this[GitHub](https://github.com/VincentK1991/image_retrieval).
+We decided to do supervised learning approach to tackle the problem. we divided the dataset into the holdout validation set, and and the training set. After trying different approaches ranging from nearest neighbors, randomforest, and regularized regression, we dicided to present only the result from the regularized regression. Chosen as a baseline for memory-based lazy learning, Nearest neighbors does not perform as well as other two as it tends to suffer from the curse of dimensionality. While Random Forest may perform well, the fitting takes a really long time. Regularized regression is fastest and yields a reasonably high accuracy score. So in the following paragraphs, we will talk only about the work done by regularized regression. The python codes for this work is hosted on this [GitHub](https://github.com/VincentK1991/image_retrieval).
 
 # 3. Pre-processing
 
@@ -223,7 +223,7 @@ The skip connection in ResNet solves this problem by sending the input signals a
 
 Generally we want to transform words to vector representation, with the goal that word similarity is reflected as distance among vectors. To do the embedding we have to train a "word2vec" model, where large corpus of text is fed to a neural network model. The neural network task is to predicts words based on surrounding context. Roughly speaking, if two words are located around the similar context, and thus they are predictive of similar context, their "meaning" are related. Consequently, the vector representation of these two words are closer than the more unrelated words.
 
-fastText is a related word2vec that is trained using skip-gram model, meaning each word is represented as sum of n-grams vector representations of characters. For example, the word <where> is represented in vector representation as sum of vector for <wh>, <whe>, <her>, <ere>, and <re>. The advantage of this method above and beyond simple word2vec model is that it can handle out-of-vocabbulary words, such as rare words and technical terms.
+fastText is a related word2vec that is trained using skip-gram model, meaning each word is represented as sum of n-grams vector representations of characters. The advantage of this method above and beyond simple word2vec model is that it can handle out-of-vocabbulary words, such as rare words and technical terms.
 
 ## 3. TFIDF
 
