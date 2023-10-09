@@ -17,4 +17,4 @@ In my free time, I enjoy developing practical data solutions to real-world probl
 
 ### Contact me
 
-[vkieuvongn@rockefeller.edu](mailto:vkieuvongn@rockefeller.edu)
+[vkieuvongngam@gmail.com](mailto:vkieuvongngam@gmail.com)
