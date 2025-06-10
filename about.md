@@ -4,10 +4,12 @@ title: About
 permalink: /about/
 ---
 
-I am a Data Scientist at Integral Ad Science, specializing in creating machine learning solutions to analyze social media content at scale. My work ensures that online advertisements appear in safe and appropriate contexts and effectively reach their intended audiences through advanced brand safety and contextual targeting techniques.
+I am currently a staff AI engineer (data scientist) at Accrete AI, where I serve as a team lead focused on architecting enterprise-scale agentic AI platforms. These platforms enable enterprise search, task augmentation, and decision automation through real-time multi-agent AI systems that seamlessly combine semantic search, external API calls, and database retrieval to solve complex business problems.
+
+Previously, I worked as a Data Scientist at Integral Ad Science, where I specialized in developing machine learning solutions for analyzing social media content at scale. My work focused on ensuring that online advertisements appear in safe and appropriate contexts while effectively reaching their intended audiences through advanced brand safety and contextual targeting techniques.
 
 
-I completed my PhD in molecular biophysics at the Rockefeller University. My PhD research utilizes machine learning approaches to do 3D reconstrucion of protein structures from cryo-electron microscopic images, as well as biochemical experiments to answer the how the structures we have explain the biological mechanistic working of the proteins. In particular I am interested in proteins that work as molecular machinery controlling import/export of molecules in or out of the cells.
+I completed my PhD in molecular biophysics at the Rockefeller University, where my research utilized machine learning approaches for 3D reconstruction of protein structures from cryo-electron microscopic images. I also conducted biochemical experiments to understand how these structures explain the biological mechanisms underlying protein function. My particular interest focused on proteins that function as molecular machinery controlling the import and export of molecules into and out of cells.
 
 ### More Information
 
