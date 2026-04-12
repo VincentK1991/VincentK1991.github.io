@@ -13,17 +13,20 @@ title: Context Graph, AI, Semantic layers, Ontology
 
 # Why RDF and not LPG
 
-this is a difficult choice. I have worked with labeled property graphs and it's an easier system to understand, querying makes a lot more sense, and the concept maps nicely to programming objects. But ultimately I go with RDF because of the richness of the ontology research, the possibility to uncode business rules in ontology, that largely the ontology lives outside of the application code giving a nice separation of process between the application code vs business logic.
+this is a difficult choice. I am more familiar with the labeled property graph (LPG) technology. LPG an easier system to understand, querying looks easier to understand, and the concept maps nicely to programming objects. But ultimately I go with RDF because of the richness of the ontology support, the possibility to uncode business rules in ontology, and the idea of linked data. One potential implication of RDF being ontology driven development is that the ontology lives outside of the application code which gives a nice separation of process between the application code vs business logic.
 
 Ultimately I think some specific design decisions here is applicable in LPG styled graph but it will require more application level code and ultimately expose more mainatenance surface. 
+
+
+## table of comparison between RDF and LPG
+
+
 
 # Database
 
 apache Jena fuseki for RDF triple store, ontop for SQL translation, postgres for document + chunk storage. 
 
-- Why apache Jena
-- why Ontop ?
-- why store document chunk ?
+
 
 
 # Indexing pipeline
