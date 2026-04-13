@@ -179,3 +179,8 @@ Here is a quick summary of the design decisions I made for AI query unification 
 | **SPARQL-to-SQL Translation** | ONTOP Integration                       | Great for traditional BI tools and formal semantic queries, though complex joins can be tricky. For AI-native workflows, the semantic binding layer (from Part 6) is often more practical.      |
 
 
+
+---
+**Navigation:**
+- Previous: [Part 7: Data Visualization]({% post_url 2026-4-11-enterprise-graph-part7-data-visualization %})
+- Next: [Part 9: Recap and Future Direction]({% post_url 2026-4-11-enterprise-graph-part9-recap %})

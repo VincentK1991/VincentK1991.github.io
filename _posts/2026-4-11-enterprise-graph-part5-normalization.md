@@ -159,3 +159,8 @@ Here is a quick summary of the design decisions I made for entity normalization 
 | **Deduplication Scope**      | Per-document (incremental)                                | Efficient for continuous indexing, but misses cross-document duplicates that weren't caught in the same run. In the future, we need to add a global sweep step for deduplication.                                                                                                                                                                                                                                                                                                                                                                                                            |
 
 
+
+---
+**Navigation:**
+- Previous: [Part 4: Data Indexing Pipeline]({% post_url 2026-4-11-enterprise-graph-part4-indexing %})
+- Next: [Part 6: Dealing with Structured Data]({% post_url 2026-4-11-enterprise-graph-part6-structured-data %})

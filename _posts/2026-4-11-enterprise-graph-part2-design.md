@@ -156,3 +156,7 @@ Ultimately, what I have in mind is a **system of knowledge record**. Every entit
 When we feed this information to an LLM, we want it to be able to navigate this web of knowledge in place of us. We want it to make sense of the knowledge and use it as strict references when making decisions. 
 
 The reference here is crucial because we want to guarantee **0% hallucination** from the LLMs. Meaning: every single assertion the AI makes must be backed up by sources in the graph, and we can explicitly quantify the agreement between the AI's assertion and the cited sources.
+---
+**Navigation:**
+- Previous: [Part 1: Intro]({% post_url 2026-4-11-enterprise-graph-part1-intro %})
+- Next: [Part 3: Introduction to ontology, RDF]({% post_url 2026-4-11-enterprise-graph-part3-rdf %})

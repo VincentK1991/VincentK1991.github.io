@@ -121,3 +121,7 @@ Another interesting observation that I have is that RDF seems to encourage docum
 LPG on the other hand, has no specific open standard ontology or any encouragement to separate ontology from application. The practice is not standardized and vary from application to application. What we think of as "ontology" in LPG should properly be called "schema" as in the sense of SQL table "schema". That is to say, "schema" does not bear shared semantic meaning, schema largely bear structural concerns of that database, such as what property fields are allowed or what constraints are placed, concerning the shape of data. Schema seems to be fragmented across multiple layers of codes -- no schema at all, to database schema constraint only, to application level validation. 
 
 The reason that LPG seems to be more popular on this is simply that ontology is difficult to do well. It's difficult to get off the ground in the first place, and also require specialize domain knowledge, tool systems to inspect and make ontology ergonomic, require thinking in terms of data modeling separate from application development, and require data governance practice. 
+---
+**Navigation:**
+- Previous: [Part 2: System Architecture & Design]({% post_url 2026-4-11-enterprise-graph-part2-design %})
+- Next: [Part 4: Data Indexing Pipeline]({% post_url 2026-4-11-enterprise-graph-part4-indexing %})

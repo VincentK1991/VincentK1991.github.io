@@ -118,3 +118,8 @@ Here is a quick summary of the design decisions I made for the indexing pipeline
 | **OCR**           | `liteparse`      | Good enough for standard reports, but struggles with complex tables. The separation of OCR from the rest of the pipeline was definitely the right call. |
 
 
+
+---
+**Navigation:**
+- Previous: [Part 3: Introduction to ontology, RDF]({% post_url 2026-4-11-enterprise-graph-part3-rdf %})
+- Next: [Part 5: Data Normalization]({% post_url 2026-4-11-enterprise-graph-part5-normalization %})

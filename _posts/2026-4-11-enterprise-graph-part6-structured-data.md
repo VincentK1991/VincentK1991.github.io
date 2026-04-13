@@ -139,3 +139,8 @@ Here is a quick summary of the design decisions I made for integrating structure
 | **Granularity Handling** | Graph for traversal, SQL for measurement | Very effective. The graph naturally models the containment relationships (e.g., tracts within counties), allowing the AI to traverse the graph to find the right FIPS codes, and then use SQL to pull the exact measurements. |
 
 
+
+---
+**Navigation:**
+- Previous: [Part 5: Data Normalization]({% post_url 2026-4-11-enterprise-graph-part5-normalization %})
+- Next: [Part 7: Data Visualization]({% post_url 2026-4-11-enterprise-graph-part7-data-visualization %})

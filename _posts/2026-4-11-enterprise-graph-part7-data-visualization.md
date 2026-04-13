@@ -69,3 +69,8 @@ Here is a quick summary of the design decisions I made for the data visualizatio
 | **Testing Inference**     | Reasoning Playground                        | Very useful. It provides a clear way to test and understand backward chaining rules (like geographic derivation) on the fly without materializing unnecessary triples.                                          |
 
 
+
+---
+**Navigation:**
+- Previous: [Part 6: Dealing with Structured Data]({% post_url 2026-4-11-enterprise-graph-part6-structured-data %})
+- Next: [Part 8: Knowledge Unification with AI]({% post_url 2026-4-11-enterprise-graph-part8-AI-query %})

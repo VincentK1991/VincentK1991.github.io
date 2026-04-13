@@ -67,3 +67,6 @@ In the agentic era, the knowledge graph is essentially a long-term, structured e
 Whether any of this matters in practice depends entirely on whether you're building for a use case where provenance, auditability, and precise entity identity matter. For a personal wiki, probably not — a markdown folder plus a vector search is enough. For an enterprise system dealing with regulatory compliance, multi-source data integration, or any domain where "where did this fact come from" is a real question — I think it matters a lot.
 
 That's the argument this blog series has been trying to make. I hope it was useful.x
+---
+**Navigation:**
+- Previous: [Part 8: Knowledge Unification with AI]({% post_url 2026-4-11-enterprise-graph-part8-AI-query %})
