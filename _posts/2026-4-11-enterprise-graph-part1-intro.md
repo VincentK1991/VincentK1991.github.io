@@ -2,12 +2,12 @@
 layout: post
 title: Project based Intro to Context Graph, Semantic layers, Ontology, and where AI fits in
 ---
-code is here: https://github.com/VincentK1991/unconcealment
+code is here: [https://github.com/VincentK1991/unconcealment](https://github.com/VincentK1991/unconcealment)
 <br>
 
 # Welcome to my blog series on the Context Graph and AI
 
-This is the first blog post in a series covering my personal exploration into the intersection of AI and enterprise knowledge management. The exploration is based on a proof of concept that aims at uncovering design decisions that leads to what I think is a good context graph for AI. The exploration is here: https://github.com/VincentK1991/unconcealment 
+This is the first blog post in a series covering my personal exploration into the intersection of AI and enterprise knowledge management. The exploration is based on a proof of concept that aims at uncovering design decisions that leads to what I think is a good context graph for AI. The exploration is here: [https://github.com/VincentK1991/unconcealment](https://github.com/VincentK1991/unconcealment)
 
 One thing I have been following closely since the advent of modern AI is the adaptation of older, pre-LLM technologies to accompany or augment the limitations of current LLMs. The area that I'm most interested in is around long-term memory (i.e., any persistence of information beyond the context window), search (RAG, GraphRAG, etc.), and specialized domain expertise (skills, subject matter ontology, etc.). These technologies, like knowledge graphs or vector search, have a deep history preceding the current AI boom.
 
