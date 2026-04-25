@@ -4,6 +4,7 @@ title: "Enterprise Graph Part 11: Appendix - Graph-SQL Mapping"
 date: 2026-04-14
 categories: [Enterprise Graph, RDF, LPG, SQL]
 ---
+<br>
 
 # Bridging SQL and Graph Architectures
 
@@ -389,7 +390,7 @@ Result: **3 bindings** from the same 2 tables. The single `employees` table is n
                   ex:worksIn
 ```
 
-Bob is now a structurally different node type (`ex:Manager`) with a different outgoing edge label (`ex:manages`). The `ex:role` property has been promoted from a plain data value into ontological class membership — meaning it is now encoded in the graph topology itself rather than stored as a property. A query that asks for all `schema:Person` nodes will silently exclude Bob, which is either the desired behavior or a subtle trap, depending on the use case.
+Bob is now a structurally different node type (`ex:Manager`) with a different outgoing edge label (`ex:manages`). The `ex:role` property has been promoted from a plain data value into ontological class membership — meaning it is now encoded in the graph topology itself rather than stored as a property. Because the ontology declares `ex:Manager rdfs:subClassOf schema:Person`, Ontop's OWL 2 QL reasoning automatically expands any query for `schema:Person` to include all subclasses — so Bob is returned alongside Alice and Carol when a SPARQL user queries for `schema:Person`. To retrieve only non-managers, an explicit `FILTER NOT EXISTS { ?emp a ex:Manager }` is required.
 
 **SPARQL & SQL Equivalents under Strategy B**
 
@@ -418,9 +419,54 @@ WHERE  e.role = 'Manager'
 
 The `a ex:Manager` type constraint in SPARQL carries the hidden `WHERE role = 'Manager'` filter — the user never writes it explicitly, but the binding encodes it invisibly.
 
-*Query 2 — Find all non-manager employees.*
+*Query 2 — Find all employees (managers included, via subclass inference).*
 
-Conversely, querying for the class `schema:Person` returns only non-managers, because Strategy B's first binding was defined on `WHERE role <> 'Manager'`. The class itself acts as a filter.
+Because the ontology declares `ex:Manager rdfs:subClassOf schema:Person`, Ontop's OWL 2 QL reasoner expands `?emp a schema:Person` to also cover all instances of every declared subclass. The engine internally rewrites the query into a UNION over all bindings whose target class is `schema:Person` or a subclass of it — which includes both the non-manager binding and the manager binding.
+
+```sparql
+-- SPARQL
+SELECT ?name
+WHERE {
+  ?emp a schema:Person ;
+       schema:name ?name .
+}
+```
+
+```sql
+-- SQL (Ontop unfolds across both bindings, then the optimizer collapses the UNION)
+SELECT name FROM employees WHERE role <> 'Manager'
+UNION
+SELECT name FROM employees WHERE role = 'Manager'
+-- collapses to:
+SELECT name FROM employees
+```
+
+This is the key benefit of declaring the subclass hierarchy in the ontology: a plain `?emp a schema:Person` query naturally spans all employees, including managers, without requiring the SPARQL user to know about the class split.
+
+*Query 2b — Find only non-manager employees.*
+
+To explicitly exclude managers, a `FILTER NOT EXISTS` pattern is required against the `ex:Manager` class. The subclass boundary no longer acts as an implicit filter; the filter must be stated.
+
+```sparql
+-- SPARQL
+SELECT ?name
+WHERE {
+  ?emp a schema:Person ;
+       schema:name ?name .
+  FILTER NOT EXISTS { ?emp a ex:Manager }
+}
+```
+
+```sql
+-- SQL
+SELECT name
+FROM   employees
+WHERE  role <> 'Manager'
+```
+
+*Query 3 — Find everyone (managers and non-managers alike).*
+
+Because the ontology declares `ex:Manager rdfs:subClassOf schema:Person`, no `UNION` is needed. A plain `?emp a schema:Person` already covers the full employee population. This is the direct payoff of the subclass hierarchy: the ontological relationship does the work that would otherwise require an explicit `UNION` pattern.
 
 ```sparql
 -- SPARQL
@@ -435,32 +481,9 @@ WHERE {
 -- SQL
 SELECT name
 FROM   employees
-WHERE  role <> 'Manager'
 ```
 
-This is the key insight of Strategy B: the ontological class boundary does the work of a SQL `WHERE` clause. A SPARQL user writing `?emp a schema:Person` is unknowingly excluding all managers from their result set — which is exactly the domain expert's intent.
-
-*Query 3 — Find everyone (managers and non-managers alike).*
-
-Because Strategy B splits employees into two classes, retrieving all employees requires a `UNION` in SPARQL — just as it would require removing the `WHERE` in SQL.
-
-```sparql
--- SPARQL
-SELECT ?name
-WHERE {
-  { ?emp a schema:Person ; schema:name ?name . }
-  UNION
-  { ?emp a ex:Manager   ; schema:name ?name . }
-}
-```
-
-```sql
--- SQL
-SELECT name
-FROM   employees
-```
-
-This reveals a cost of Strategy B: queries that span all employees require the user to know about the class split and explicitly UNION them. The binding choice shapes what queries are simple and what queries are complex.
+This reveals the advantage of Strategy B over a design where `ex:Manager` and `schema:Person` are treated as disjoint classes: retrieving all employees is no more complex than retrieving all persons. The binding choice — combined with the subclass declaration — shapes which queries are naturally concise and which require additional SPARQL patterns like `FILTER NOT EXISTS`.
 
 ---
 
@@ -621,8 +644,9 @@ Role encoded as: property    Role encoded as: node type   Role encoded as: prope
 Dept encoded as: node        Dept encoded as: node        Dept encoded as: property
 
 Can query Department?  yes   Can query Department?  yes   Can query Department?  NO
-Can query all staff?   yes   Can query all staff?   UNION Can query all staff?   yes
+Can query all staff?   yes   Can query all staff?   yes   Can query all staff?   yes
+Exclude one subclass?  N/A   Exclude one subclass?  FILTER Exclude one subclass?  N/A
 Can add dept props?    yes   Can add dept props?    yes   Can add dept props?    N/A
 ```
 
-The binding choice is an irreversible architectural decision for the virtual graph. It determines which questions are one-line queries, which questions require complex UNION or subquery patterns, and which questions cannot be answered at all without changing the bindings.
+The binding choice is an irreversible architectural decision for the virtual graph. It determines which questions are one-line queries, which questions require additional SPARQL patterns (such as `FILTER NOT EXISTS` to exclude a subclass, or `UNION` when class hierarchies are absent), and which questions cannot be answered at all without changing the bindings.
