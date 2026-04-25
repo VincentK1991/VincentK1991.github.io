@@ -4,6 +4,7 @@ title: "Enterprise Graph Part 10: Appendix - Glossary"
 date: 2026-04-14
 categories: [Enterprise Graph, RDF, LPG]
 ---
+<br>
 
 # The "Different Word, Same Concept" Dictionary
 

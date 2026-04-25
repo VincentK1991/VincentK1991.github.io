@@ -4,7 +4,8 @@ title: "Enterprise Graph Part 12: Ontology Discovery"
 date: 2026-04-24
 categories: [Enterprise Graph, Ontology, AI, Agents]
 ---
-install the skills here `gh skill install VincentK1991/present-at-hand ontology-discovery`
+install the skills here 
+`gh skill install VincentK1991/present-at-hand ontology-discovery`
 <br>
 
 # Moving Beyond Flat Taxonomies
