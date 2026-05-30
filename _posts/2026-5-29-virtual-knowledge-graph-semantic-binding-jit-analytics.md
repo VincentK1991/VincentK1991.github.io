@@ -6,13 +6,13 @@ categories: [Enterprise Graph, Semantic Binding, Analytics]
 ---
 <br>
 
-Most enterprise analytics still runs on a model built for a world where you know the questions before you know the answers. AI changes what becomes possible — but only if the architecture changes with it. This post lays out that shift in five parts: where we came from, where we're going, and the two ideas — semantic binding and the virtual knowledge graph — that connect them.
+Most enterprise analytics still runs on a model built for a world where you know the questions before you know the answers. AI changes what becomes possible — but only if the architecture changes with it. This post lays out that shift in five parts, and the two ideas that connect them: semantic binding and the virtual knowledge graph.
 
-For hands-on technical depth on how I've been exploring these ideas, see my [Enterprise Graph series]({% post_url 2026-4-11-enterprise-graph-part1-intro %}).
+For hands-on technical depth, see my [Enterprise Graph series]({% post_url 2026-4-11-enterprise-graph-part1-intro %}).
 
 # 1. The Pre-AI Model
 
-To see why a new paradigm matters, it helps to be precise about the model it replaces. Take the classic business intelligence stack — the one most enterprises still run today. It follows a predictable shape:
+To see why a new paradigm matters, be precise about the model it replaces. The classic business intelligence stack follows a predictable shape:
 
 ```mermaid
 graph LR
@@ -22,13 +22,9 @@ graph LR
     BI --> Exec[Executive Meeting]
 ```
 
-The data engineer (or analytic engineer) owns the ETL contract: which tables get extracted, how they are joined, what grain the intermediate views land at. The subject-matter analyst owns the BI layer: which metrics appear on the dashboard, how they are sliced, what filters the executive team will want to toggle during the quarterly review. Everyone is doing their job. The pipeline is not broken.
+The analytic engineer owns the ETL contract; the analyst owns the BI layer. Nobody is doing their job wrong. But the hidden assumption is that **the question must be known in advance**: revenue by region, churn by cohort are negotiated weeks earlier and encoded into pipelines and dashboard tiles. The dashboard is a preview of the conversation the organization expects to have.
 
-The hidden assumption is that **the question must be known in advance**. Revenue by region, churn by cohort, pipeline by stage — these are not discovered at the meeting. They are negotiated weeks earlier, encoded into pipeline models and dashboard definitions, and rendered into charts that an analyst has already rehearsed. The dashboard is a preview of the conversation the organization expects to have.
-
-That works when the numbers behave. Then one quarter, revenue dips in a region that was supposed to grow, or churn spikes in a cohort that looked healthy last month. The executive asks the question the dashboard was never built to answer: **"Why?"**
-
-And that single word kicks off a second, slower pipeline:
+That works until a new question comes up — revenue dips in a region that was supposed to grow, churn spikes in a cohort that looked healthy — and the executive asks the question the dashboard was never built to answer: **"Why?"** That single word kicks off a second, slower pipeline:
 
 ```mermaid
 sequenceDiagram
@@ -46,63 +42,39 @@ sequenceDiagram
     Analyst-->>Exec: Preliminary answer (week later)
 ```
 
-The back-and-forth is slow — not because the people are slow, but because the architecture **front-loads all of the agreement before the question is known**. The ETL contract, the semantic definitions, the dashboard layout, the join paths — all of that was decided upstream, when the organization thought it knew what it would need to discuss. The "why?" question arrives downstream, after the fact, and every follow-up question pays the full cost of renegotiating that contract.
-
-This is the pre-AI analytics model — what I'll call **ahead-of-time analytics** — in a sentence: **materialize the answers you expect; chase the answers you didn't.**
+The back-and-forth is slow not because the people are slow, but because the architecture **front-loads all the agreement before the question is known**. I call this **ahead-of-time analytics**.
 
 # 2. Just-In-Time Analytics
 
-Just-In-Time Analytics is, simply, **business intelligence that happens on the fly** — at the moment the question is asked — rather than through the ahead-of-time path from source system to pipeline to dashboard that we described in Section 1. There is no weeks-long lead time. There is no ticket to the analytic engineering backlog. The question and the answer share the same moment.
+Just-In-Time Analytics is **business intelligence that happens on the fly** — at the moment the question is asked — with no weeks-long lead time and no ticket to the analytic-engineering backlog. The question and the answer share the same moment.
 
-What makes this possible now is AI — specifically, large language models and agentic tools with three capabilities that the ahead-of-time pipeline never had:
+What makes this possible now is AI — LLMs and agentic tools with three capabilities the ahead-of-time pipeline never had:
 
-*   **Write and execute code.** The agent can compose and run the work itself — SQL against a warehouse, Python for analysis, a structured query, or a call to an external tool — without a human in the loop for every step.
-*   **Interface in natural language.** People who don't write code can still get rigorous answers. An executive asks in plain English; the agent handles the translation to whatever the data layer requires.
-*   **Probe assumptions and hypotheses interactively.** Through back-and-forth dialogue, an analyst, executive, or anyone else can reformulate a question, validate their thinking, invalidate a hunch, or follow a thread of exploratory analysis in real time — without waiting for an ETL job to finish or for someone on another team to get back to them.
+*   **Write and execute code** — SQL, Python, a structured query, a tool call — without a human in the loop for every step.
+*   **Interface in natural language** — people who don't write code still get rigorous answers.
+*   **Probe interactively** — reformulate a question, validate a hunch, follow a thread of exploration in real time.
 
-But this is not just a better tool for analysts. That framing still assumes analytics is something specialists do on behalf of everyone else. Just-In-Time Analytics collapses that boundary.
+Picture a CEO at a Starbucks before a flight, wondering why churn ticked up in a segment that looked stable. In the ahead-of-time model that curiosity becomes a day Slack thread that starts a multi-day chase. In the Just-In-Time model, they type the question in plain language; the agent finds the data, writes and runs the query, and summarizes. By the time the barista calls their name, they have a working hypothesis.
 
-Picture a CEO, CFO, or CMO at a Starbucks with a laptop, killing time before a flight. They wonder why churn ticked up last month in a segment that looked stable. In the ahead-of-time model, that curiosity dies on the vine — or becomes a Slack message that starts a multi-day chain. In the Just-In-Time model, they type the question in plain language and go back to their coffee. The agent does the work a team would have done: find the relevant data, write the query, run it, read the results, sketch a view, ask a clarifying follow-up, refine, and summarize. By the time the barista calls their name, they have an answer — or at least a working hypothesis worth bringing to the next meeting.
-
-But the difference between ahead-of-time analytics and Just-In-Time Analytics is not just a change in speed. Speed is the visible symptom. The deeper change is in how the organization works.
-
-**Process.** An ahead-of-time organization routes every new question through a request: spec a pipeline, commission a dashboard, wait for a handoff. A Just-In-Time organization has to change its processes to support a different assumption — that people at the point of the question can ask it directly, without filing a request and waiting for someone else to build the answer. That means different governance, different access patterns, and different expectations about who is allowed to reach into data. The organization has to catch up to the fact that curiosity no longer waits in a queue.
-
-**Skillset.** The subject-matter analyst who sits closest to the business previously had to keep bothering other teams every time the work required code they couldn't write themselves — a script, a join, an analysis they didn't have the tooling to run. With an agent in the loop, they have the option to do that work on their own, or at least get far enough without a handoff. That matters because proximity to the business is the thing no engineering team can substitute for. The analyst knows whether a number smells wrong. They know which hypothesis is worth probing and which is a dead end. Just-In-Time Analytics doesn't replace that judgment — it finally puts the tools within reach of the person who has it.
 
 ## What Just-In-Time Analytics is not
 
-We should also be clear about what this paradigm is **not**.
+Just-In-Time analytics shines when people ask exploratory, or probing questions. But exploratory does not mean every term is up for reinterpretation. Every organization has core concepts — **revenue**, **customer**, **active user**, **churn** — with fixed, agreed-upon meanings and real financial consequences. Revenue is a definition told to the board, investors, and regulators. If an agent computes it one way Monday and another Tuesday, it sends confusion up and down the ranks. This is why an LLM alone or raw text-to-SQL is insufficient.
 
-Just-In-Time Analytics is exploratory by nature. It shines when people ask probing questions — slicing, dicing, cohorting different segments, following a thread that no standing dashboard and no standing pipeline ever anticipated. But exploratory does not mean indeterminate. It does not mean every term is up for reinterpretation at the moment, subject to whoever is asking or however they phrase the question.
-
-Every organization has core business concepts that carry a fixed, agreed-upon meaning — **revenue**, **customer**, **active user**, **churn**, **retention** — with real financial and operational consequences. Revenue is not a casual word. It is a definition that carries a story told to the board, to investors, to regulators, to the executive team. If an AI agent queries a revenue figure one way on Monday and an active-user count a slightly different way on Tuesday, and the two answers are inconsistent with what the organization has officially committed to, that is not a harmless quirk of exploration. That is a meeting with your manager. That is a restatement. That is scrutiny you cannot afford.
-
-This is exactly the problem Just-In-Time Analytics has to solve — and it is the problem that shows us a large language model alone is insufficient. Ask an LLM to calculate revenue or count active users from scratch, with no grounding beyond its training data, and you are gambling on probabilistic fluency, not organizational truth. Even a modest hallucination rate — say, one wrong answer in ten — means one in ten queries returns something plausible but wrong. Active users might appear to grow or shrink by five or ten percent depending on nothing more than how the question was phrased. For metrics that move markets, headcount decisions, and regulatory filings, that is a grave problem.
-
-Exploration needs freedom. Definitions need rigor. Just-In-Time Analytics has to deliver both — and that tension is what the next two sections address.
-
-That is the shift. Analytics is no longer a batch artifact prepared in advance for a scheduled conversation. It is a live capability — available to whoever has the question, whenever they have it, in whatever pocket of downtime they happen to be sitting in.
-
-Ahead-of-time analytics materialized the answers you expected. Just-In-Time Analytics lets you **ask the answers you didn't**.
+Just-In-Time Analytics has to deliver both flexibility and reliability — the tension the next two sections resolve.
 
 # 3. Semantic Binding
 
-The problem we ended Section 2 with — plausible but inconsistent answers, metrics that shift with phrasing, definitions that cannot be left to chance — has a direct architectural consequence: **Just-In-Time Analytics cannot run on raw text-to-SQL. Period.**
+The problem we ended Section 2 with — plausible but inconsistent answers — has a direct consequence: **Just-In-Time Analytics cannot run on raw text-to-SQL alone.**
 
-Raw text-to-SQL is the obvious shortcut. Many data warehouses and off-the-shelf analytics products already attempt it: hand the model a natural language question, let it inspect the schema, write SQL, return a number. It feels fast. The SQL looks reasonable. The answer arrives before your coffee gets cold. For a quick personal lookup or a sandbox experiment, that may be fine.
+Raw text-to-SQL may seem like the obvious shortcut: hand the model a question, let it inspect the schema, write SQL, return a number. It feels fast and the SQL looks reasonable. But a model guessing from natural language to SQL against raw table names has no anchor to what **revenue** or **active user** officially means; it improvises joins and filters slightly differently each time. That is fine for orienting yourself in an unfamiliar schema while you *build* a pipeline — text-to-SQL is really an **ETL-phase helper tool** — but it is not the production quality that just-in-time analytics promises. This confusion alone could be why the POC never get adoption.
 
-For enterprise-scale Just-In-Time Analytics, it is not. A model guessing its way from English to SQL against raw table and column names has no anchor to what **revenue** or **active user** officially means in your organization. It improvises joins, picks filters, and interprets edge cases on the fly — differently each time, depending on phrasing, context window, and mood. That is low fidelity, low accuracy, and high risk. It behaves closer to a **helper tool** — useful for drafting, brainstorming, orienting yourself in unfamiliar data — than to **production analytics** you would stake a board deck, an investor call, or a regulatory filing on.
+Semantic binding closes that gap. In ahead-of-time analytics, the binding between a concept and its computation was implicit, locked inside a pipeline job built weeks earlier. Semantic binding makes that agreement **explicit and durable**, decoupled from any dashboard. The organization declares once, in reviewable form, what `Revenue` means — its sources, filters, grain, and how it relates to `Customer` or `Active User`. When an agent answers a question, it does not invent the definition; it resolves against a binding the organization has already stood behind.
 
-This is where a lot of developers — and a lot of organizations — get confused. Text-to-SQL tools are everywhere now, and it is easy to look at one, see a plausible answer come back in seconds, and anchor your entire analytics strategy around it. But that misreads what the tool is for. Text-to-SQL is probably best understood as a way to **explore a relational database** — to orient yourself in unfamiliar schemas, draft a query, figure out which tables join to which while you are building a pipeline. It is a tool for the ETL phase: discovering structure, prototyping transforms, getting a feel for the data before you commit to a definition. That is useful work. It is just not Just-In-Time Analytics. Conflating the two is how organizations end up with fast, fluent answers that nobody can reconcile when the numbers matter.
+The W3C **R2RML** (RDB-to-RDF Mapping Language) standard is one way to write these bindings: each maps an ontological concept to a **logical table** — a SQL query that encodes the official definition. The `rdfs:comment` is not decoration; it is the organizational story behind the number, visible to reviewers, auditors, and the agent alike.
 
-Semantic binding is what closes that gap.
-
-In ahead-of-time analytics, the binding between a business concept and its computation was implicit — locked inside a pipeline job, an intermediate model, a dashboard tile that someone built weeks before the question arrived. The definition was fixed, but only for the questions someone already anticipated.
-
-Semantic binding makes that agreement **explicit and durable**, decoupled from any single dashboard or pipeline. The organization declares, once and in a reviewable form, what `Revenue` means: which sources it draws from, which filters apply, which grain it is computed at, how it relates to `Customer` or `Active User`. That declaration is the binding — a durable contract between domain meaning and physical data. When an agent answers a Just-In-Time question, it does not invent the definition at query time. It resolves the question against a binding the organization has already stood behind.
-
-Here is what that looks like in practice. The W3C **R2RML** (RDB to RDF Mapping Language) standard is one way to write semantic bindings: each mapping connects an ontological concept to a **logical table** — a SQL query that encodes the official definition. The `rdfs:comment` on each mapping is not decoration; it is the organizational story behind the number, visible to reviewers, auditors, and the agent alike.
+<details markdown="1">
+<summary><b>R2RML bindings — Customer, Active User, Revenue</b></summary>
 
 ```turtle
 @prefix rr:    <http://www.w3.org/ns/r2rml#> .
@@ -207,57 +179,40 @@ Here is what that looks like in practice. The W3C **R2RML** (RDB to RDF Mapping 
     ] .
 ```
 
-Notice what is happening in each mapping. The SQL is not improvised at query time — it *is* the definition. The filters (`lifecycle_status = 'active'`, trailing 30-day sessions, recognized revenue excluding refunds) are negotiated once, reviewed once, and bound once. When an executive asks "what is our active user count?" or "what was revenue last quarter?", the agent does not guess which tables to join. It resolves `ex:ActiveUser` or `ex:Revenue` against a binding the organization has already stood behind.
+</details>
 
-Exploration stays free at the edges — but **at the edges only**. The bindings fix the center; composition happens around them. Here is a concrete thread using the three mappings above.
+The SQL is not improvised at query time — it *is* the definition. The filters are negotiated once, reviewed once, and bound once. Exploration stays free at the edges; the bindings fix the center. Here is a concrete thread on the three mappings above — active users dropped twelve percent month-over-month, and nobody built a dashboard for it:
 
-Suppose the headline number comes back wrong: active users dropped twelve percent month-over-month. Nobody built a dashboard for this — it is a Just-In-Time question. The executive starts probing:
+1. **"How many active users right now?"** The agent counts `ex:ActiveUser` instances — the trailing-30-day filter applies exactly as written, never quietly broadened to "anyone who logged in once."
 
-1. **"How many active users do we have right now?"** The agent counts instances of `ex:ActiveUser` — nothing more, nothing less. The trailing 30-day session filter from the `<#ActiveUser>` binding applies exactly as written. The agent does not quietly broaden the definition to "anyone who logged in once" or narrow it to "paid subscribers only."
+2. **"Break that down by signup cohort."** Same binding, grouped by `ex:signupDate` month. No renegotiation of what "active" means.
 
-2. **"Break that down by signup cohort."** Same binding, new grouping. The agent groups `ex:ActiveUser` instances by `ex:signupDate` month. Still the official active-user definition — just sliced along a dimension already exposed in the mapping. No renegotiation of what "active" means.
+3. **"Is this concentrated in APAC?"** Now it composes across bindings: join `ex:ActiveUser` to `ex:Customer`, filter `ex:region = 'APAC'`. Each binding still owns its own definition; the exploration is a join and a filter, not a new definition.
 
-3. **"Is this concentrated in APAC?"** Now the agent composes across bindings. It joins `ex:ActiveUser` to `ex:Customer` on identity, filters on `ex:region = 'APAC'`, and counts. The `<#Customer>` binding still owns who counts as a customer; the `<#ActiveUser>` binding still owns what counts as active. The exploration is a join and a filter, not a new definition invented for one region.
+4. **"Did revenue move in the same period?"** Pivot to `ex:Revenue`, still excluding refunds per its binding — a thread no pipeline anticipated, yet both numbers stay reconcilable to what the board was told.
 
-4. **"Did revenue move in the same period?"** The agent pivots to `ex:Revenue`, sums `ex:amount` over the same reporting window, still excluding refunds and chargebacks per the `<#Revenue>` binding. A thread no standing pipeline anticipated — revenue crossed with an active-user investigation — but both numbers remain reconcilable to what the board was told last quarter.
+5. **"What if we counted anyone with a session in the last seven days?"** Here the agent should **stop and escalate**, not silently run a different query. That is a *definition change*, not exploration: it needs a new binding and a review. The edge is free; the core is not.
 
-5. **"What if we counted anyone with a session in the last seven days instead?"** This is where the agent should stop and escalate — not silently run a different query. That is a **definition change**, not an exploration. It requires a new binding, a review, and an explicit decision. The edge is free; the core is not.
+That is the split. Raw text-to-SQL asks the model to be analyst *and* definitional authority in a single shot. Semantic binding separates the roles: the organization owns the definitions, the agent owns the composition. Just-In-Time Analytics becomes trustworthy not because the model stopped hallucinating, but because it was never asked to define the metrics.
 
-That is the distinction. Raw text-to-SQL treats every follow-up as a fresh improvisation over raw tables. Semantic binding treats follow-ups one through four as **composition over fixed building blocks** — cohorting, filtering, joining, and time-slicing concepts the organization has already stood behind. Revenue is still recognized net revenue. Active user is still trailing 30-day authenticated sessions. The agent explores freely precisely because it was never asked to redefine them.
-
-That is the split worth internalizing: raw text-to-SQL asks the model to be both analyst and definitional authority in a single shot. Semantic binding separates those roles. The organization owns the definitions. The agent owns the composition. Just-In-Time Analytics becomes trustworthy not because the model stopped hallucinating, but because it was never asked to define the metrics in the first place.
-
-For terminology and a deeper treatment of how semantic binding differs from schema and ontology — including worked examples of how the same physical tables can be bound in different ways — see [Part 10: Appendix — Glossary]({% post_url 2026-4-14-enterprise-graph-part10-appendix-glossary %}) and [Part 11: Appendix — Graph-SQL Mapping]({% post_url 2026-4-14-enterprise-graph-part11-appendix-graph-sql-mapping %}).
+For how semantic binding differs from schema and ontology — with worked examples — see [Part 10: Appendix — Glossary]({% post_url 2026-4-14-enterprise-graph-part10-appendix-glossary %}) and [Part 11: Appendix — Graph-SQL Mapping]({% post_url 2026-4-14-enterprise-graph-part11-appendix-graph-sql-mapping %}).
 
 # 4. Virtual Knowledge Graph
 
-Section 3 showed semantic binding in action — R2RML mappings that pin `Revenue`, `ActiveUser`, and `Customer` to SQL the organization has already agreed on. A word of caution before we go further: a knowledge graph is **not** something we force on users to accept. It is not an architectural choice we make because we enjoy looking at things as graphs, or because graph databases are fashionable. Nobody sat down and said, "let's do knowledge graphs." The knowledge graph is a **logical consequence** — an entailment — of doing Just-In-Time Analytics with semantic binding. Get those two right, and the graph is already there.
+Section 3 pinned `Revenue`, `ActiveUser`, and `Customer` to SQL the organization had already agreed on. A caution before we go further: a knowledge graph is **not** something we impose because graphs are fashionable. It is a **logical consequence** — an entailment — of doing Just-In-Time Analytics with semantic binding.
 
-To see why, pause on the words *semantic binding* themselves.
+Pause on the words. Semantic binding maps a **logical table** — where the rows live — to a **semantic term**, an ontological entity like `ex:Revenue` or `ex:Customer`. In the R2RML above, `rr:logicalTable` is the table side and `rr:class ex:Revenue` the ontology side: *this SQL is what we mean when we say Revenue.*
 
-**Semantic** means about meaning. **Binding** means mapping one thing to another. So when we say *semantic binding*, what maps to what?
+Those entities are the **ontology**: the formal vocabulary of what exists in the business and how it relates. An active user links to a customer; revenue is reported on a date. Relationships between ontology classes, taken together, form a **graph**. You did not set out to draw a graph — you set out to bind meaning to data, and a graph falls out.
 
-The answer: semantic binding maps a **logical table** — the relational data where rows actually live — to a **semantic term**, an ontological entity like `ex:Revenue`, `ex:ActiveUser`, or `ex:Customer`. In the R2RML block above, the `rr:logicalTable` with its `rr:sqlQuery` is the logical table side. The `rr:class ex:Revenue` (or `ex:ActiveUser`, `ex:Customer`) is the ontology side. The binding is the bridge between them: *this SQL is what we mean when we say Revenue.*
-
-Those entities — active user, customer, revenue, churn, retention — are not just labels. Collectively, they are the **ontology**: the organization's formal vocabulary of what exists in the business and how those things relate. An active user is linked to a customer. Revenue is reported on a date. Churn is defined relative to a customer lifecycle. These are relationships between ontology classes, and relationships, taken together, form a **graph**. You did not set out to draw a graph. You set out to bind meaning to data — and a graph is what falls out.
-
-So semantic binding is doing something deeper than attaching friendly names to columns. It is **binding physical relational data to an ontology** — and because the ontology classes connect to one another, it is binding relational data into **graph form**. Nodes are concepts. Edges are the relations the organization has declared between them. The agent in Section 3's exploration thread was not joining raw tables called `users` and `customers`; it was traversing a path from `ex:ActiveUser` to `ex:Customer` to `ex:region` — a graph path grounded in bindings, not improvisation.
-
-Here is the step that completes the picture: a **virtual knowledge graph** is not a separate product decision — it is the structure that necessarily emerges when you write semantic bindings.
-
-*Virtual* because the data never moves. Revenue still lives in `analytics.recognized_revenue`. Users still live in `analytics.users`. No one copies millions of rows into a separate graph database, runs a nightly sync job, or worries about the graph going stale the moment the warehouse refreshes. The graph exists as meaning and mapping — ontology plus bindings — layered over data that stays where it already is.
-
-*Knowledge graph* because the result is navigable structure: entities, properties, and relationships that an agent (or a human) can traverse, compose, and query in domain terms rather than in DDL. The exploration in Section 3 — cohort active users, join to customers by region, pivot to revenue in the same window — is graph traversal expressed through bound concepts, executed against relational storage at query time. The user never had to "adopt a graph." They asked questions. The graph was the entailment.
-
-The language of semantic binding in the example above is **R2RML** — **R**elational database to **R**DF **M**apping **L**anguage. It is a W3C standard format for declaring how a logical table in a relational database maps to entities and properties in an RDF graph. The `rr:logicalTable` side is the relational world; the `rr:class` and `rr:predicateObjectMap` side is the RDF world. When you write R2RML, you are not merely documenting SQL — you are authoring the virtual knowledge graph that Just-In-Time Analytics requires, whether or not anyone calls it that.
-
-Just-In-Time Analytics, semantic binding, and the virtual knowledge graph are not three separate ideas you pick from a menu. They are one architecture seen from three angles — and the graph is the angle you get for free. Just-In-Time Analytics is the *when* — answers at the moment the question is asked. Semantic binding is the *mechanism* — physical data mapped to ontological meaning. The virtual knowledge graph is the *consequence* — the traversable structure that follows when bound entities relate to one another, without copying data out of the warehouse.
+A **virtual knowledge graph** is the structure that emerges. *Virtual* because the data never moves — revenue still lives in `analytics.recognized_revenue`, users in `analytics.users`. *Knowledge graph* because the result is navigable structure traversable in domain terms. The Section 3 exploration — cohort active users, join to customers by region, pivot to revenue — *is* graph traversal over bound concepts, run against relational storage at query time. Nobody "adopted a graph"; they asked questions, and the graph was the entailment.
 
 ## From SQL tables to SPARQL to graph
 
-To make this concrete, take the exploration question from Section 3: **"Is the active-user drop concentrated in APAC?"** Below are the relational source tables where the data actually lives, the SPARQL a user (or agent) writes against the virtual graph, the SQL the engine reformulates against those tables, and the graph-shaped answer that comes back.
+Take the Section 3 question — **"Is the active-user drop concentrated in APAC?"** Below are the source tables, the SPARQL written against the virtual graph, the SQL the engine reformulates, and the graph-shaped answer that comes back.
 
-**Source tables** — rows in the warehouse, untouched:
+<details markdown="1">
+<summary><b>Source tables — rows in the warehouse, untouched</b></summary>
 
 ```sql
 -- analytics.customers
@@ -290,7 +245,10 @@ GROUP BY reporting_date;
 -- 2025-05-01     | 125000.00
 ```
 
-**SPARQL** — asked in domain terms against the virtual knowledge graph (bindings from Section 3):
+</details>
+
+<details markdown="1">
+<summary><b>SPARQL — asked in domain terms against the virtual graph</b></summary>
 
 ```sparql
 PREFIX ex:  <http://example.com/ontology#>
@@ -319,9 +277,12 @@ WHERE {
 }
 ```
 
-The query never mentions `analytics.users`, `analytics.customers`, or join keys. It traverses bound concepts: find `ex:ActiveUser` instances, follow `ex:accountHolder` to `ex:Customer` filtered to `ex:region "APAC"`, and attach `ex:Revenue` for the same reporting window. The ontology property `ex:accountHolder` declares how the two bindings relate (here, shared identity between user and customer).
+</details>
 
-**Reformulated SQL** — what the virtual knowledge graph engine translates the SPARQL into at query time, unfolding the R2RML bindings:
+The query never mentions `analytics.users`, `analytics.customers`, or join keys. It traverses bound concepts: find `ex:ActiveUser` instances, follow `ex:accountHolder` to `ex:Customer` filtered to APAC, and attach `ex:Revenue` for the same window. The property `ex:accountHolder` declares how the two bindings relate.
+
+<details markdown="1">
+<summary><b>Reformulated SQL — generated at query time by unfolding the bindings</b></summary>
 
 ```sql
 SELECT
@@ -357,9 +318,11 @@ CROSS JOIN (
 WHERE r.reporting_date = DATE '2025-05-01';
 ```
 
-Note what happened: the `<#ActiveUser>`, `<#Customer>`, and `<#Revenue>` bindings supplied the subqueries and their filters. The SPARQL graph pattern supplied the join (`ex:accountHolder`) and the regional filter. No one wrote this SQL by hand at the Starbucks — it was entailed by bindings plus query.
+</details>
 
-**Graph answer** — the CONSTRUCT result, rendered as nodes and edges (C002 in EMEA is an active user in the source tables but absent from this graph because the query filtered to APAC):
+The bindings supplied the subqueries and their filters; the SPARQL supplied the join (`ex:accountHolder`) and the regional filter. No one wrote this SQL by hand at the Starbucks — it was entailed by bindings plus query.
+
+The CONSTRUCT result comes back as nodes and edges (C002 in EMEA is an active user in the source tables but absent here because the query filtered to APAC):
 
 <div style="display: flex; justify-content: center; margin: 2rem 0;">
 <svg viewBox="0 0 720 420" width="100%" style="max-width: 720px; font-family: sans-serif; background: #fafafa; border: 1px solid #e0e0e0; border-radius: 8px;">
@@ -427,81 +390,60 @@ Note what happened: the `<#ActiveUser>`, `<#Customer>`, and `<#Revenue>` binding
 </svg>
 </div>
 
-The relational tables stayed in the warehouse. The SPARQL was written in ontology terms. The SQL was generated from bindings. The answer came back as a graph. That pipeline — source tables, semantic bindings, SPARQL in, graph out — is the virtual knowledge graph in one picture.
+The tables stayed in the warehouse, the SPARQL was in ontology terms, the SQL was generated from bindings, and the answer came back as a graph — the virtual knowledge graph in one picture.
 
 ## What the virtual knowledge graph is not
 
-We should be equally clear about what *virtual* does **not** mean.
+A virtual knowledge graph is **not** another database you stand up, materialize, and keep in sync. There is no ETL job copying rows into nodes and edges, no second store lagging behind the first. If you have lived through a "let's load everything into a graph database" migration, that is the opposite of what we mean.
 
-A virtual knowledge graph is **not** just another database you have to stand up, materialize, and keep in sync. It is not a graph database. There is no ETL job that copies rows out of your warehouse into nodes and edges. There is no second store lagging behind the first, no nightly sync, no duplicate dataset cluttering a separate cluster. If you have lived through a "let's load everything into a graph database" migration, that is the opposite of what we mean here.
-
-This is a **zero-copy architecture**. Your data stays exactly where it already is — in SQL tables, in a document store, in a lakehouse, in whatever NoSQL system owns the source of truth. Nothing moves. Nothing is duplicated for the sake of graph shape.
-
-The graph is a **logical construction** — nothing more, nothing less. You write semantic bindings; the bindings declare how ontological entities and relationships map to physical storage; a query engine resolves graph-shaped questions against that mapping at runtime. The graph exists when you need it, in the answer, not as a permanent copy sitting in another database.
-
-That is what *virtual* means in virtual knowledge graph: graph semantics without graph storage. The entailment of Just-In-Time Analytics and semantic binding — not another migration project.
+This is a **zero-copy architecture**: your data stays where it already is — SQL tables, a document store, a lakehouse, whatever owns the source of truth. The graph is a **logical construction** — you write semantic bindings, and a query engine resolves graph-shaped questions against them at runtime. That is what *virtual* means: graph semantics without graph storage.
 
 ## Why virtual knowledge graph wasn't popular before AI
 
-If virtualization is so elegant, why wasn't everyone doing it already? Two reasons — and both come down to economics, not technology.
+If virtualization is so elegant, why wasn't everyone doing it?
 
-**Reason one: virtualization taxes every query.** Materialization pays the transformation cost once, in a big batch ETL job overnight. Virtualization pays a translation cost on every query — SPARQL to SQL, binding resolution, reformulation against source tables. In the ahead-of-time world, that tax bought you nothing. Your BI dashboard was already hitting a pre-built view from a pipeline that ran last night. Adding ten seconds of translation latency to a dashboard that loads in one second is pure downside. You materialized precisely *because* you wanted to stop paying per query.
+**Virtualization taxes every query.** Materialization pays the transformation cost once, in an overnight batch; virtualization pays a translation cost — SPARQL to SQL, binding resolution, reformulation — on *every* query. In the ahead-of-time world that tax bought nothing: your dashboard already hit a pre-built view, so adding ten seconds of translation to a one-second load was pure downside. And ETL was mandatory anyway — if you were already running pipelines, materializing one more copy was cheap. So virtualization sat on the shelf: viable, but economically wrong for the pre-AI workflow.
 
-**Reason two: ETL was mandatory anyway.** In ahead-of-time analytics, you had no choice but to run a pipeline — source to warehouse to mart to dashboard. If you were already paying for ETL, the marginal cost of materializing one more copy into a shape your BI tool could slice was low. Batch it once, serve it a thousand times. Virtualization would have meant paying translation costs *on top of* an ETL stack you still needed to maintain. Materialize and be done made obvious sense.
+**AI reverses the accounting.** ETL tooling is mature; assembling data in batch is no longer the bottleneck. The bottleneck is **how fast an unanticipated question can be answered** — one no dashboard was built for. In Section 1 that cost a day at minimum, often a week. Virtualization adds seconds per query; the old ETL cycle costs days per question. With bindings and a virtual graph, the same hypothesis — *is the drop concentrated in APAC?* — is explored in minutes, with no ticket and no new pipeline.
 
-So virtualization sat on the shelf — technically viable, economically wrong for the pre-AI workflow.
+It also reframes latency. In the BI era, slicing a pre-built view in one second set the expectation, so virtualization's extra seconds felt like a regression. In the agentic era the user waits thirty seconds to a minute for an answer to stream back; ten more seconds for translation barely registers. **Query latency is the wrong thing to optimize** — waiting a day for someone to build the table is the real cost.
 
-**The value reversal.** AI agents change the accounting completely. The limiting factor has moved. ETL tooling is mature; assembling data in batch is not the bottleneck anymore. The bottleneck is **how fast a question can be answered** — especially a question nobody anticipated, that no dashboard was built for, that no pipeline was scoped for.
+Materialization optimized for repeated reads of known questions; virtualization optimizes for unknown questions asked once, right now — exactly what agents and executives at Starbucks keep asking.
 
-In Section 1, we traced that bottleneck: an analyst scopes the question, files a ticket, an analytic engineer specs a table, a data engineer runs a pipeline — a day at minimum, often a week. That is the cost that dominates the experience. Virtualization adds seconds per query. The old ETL cycle costs days per question.
-
-The AI agent collapses that cycle. With semantic bindings and a virtual knowledge graph, the same hypothesis — *is the active-user drop concentrated in APAC?* — can be explored in minutes, in natural language, without a ticket and without a new pipeline. Virtualization is no longer a tax on a fast BI dashboard. It is the mechanism that makes Just-In-Time Analytics possible at all.
-
-This also reframes the latency comparison. In the BI era, slicing a pre-materialized view in one second set the expectation. Virtualization's extra seconds felt like a regression. In the agentic era, the user asks in plain language and waits thirty seconds to a minute for the answer to stream back. Adding ten more seconds for binding translation barely registers. **Query latency is the wrong thing to optimize against.** What changes the experience is waiting a day for someone to build the table — not whether the virtual graph answer arrives in forty seconds instead of thirty.
-
-That is the value reversal AI created. Materialization optimized for repeated reads of known questions. Virtualization optimizes for unknown questions asked once, right now — which is exactly what agents and executives at Starbucks keep asking.
-
-The ahead-of-time model materialized answers. The Just-In-Time model materializes **meaning** — and lets the answers follow.
-
-For how structured data integration fits into a broader knowledge graph architecture, see [Part 6: Dealing with Structured Relational Data]({% post_url 2026-4-11-enterprise-graph-part6-structured-data %}). For the technical machinery of query-time translation over bindings, see [Part 11: Appendix — Graph-SQL Mapping]({% post_url 2026-4-14-enterprise-graph-part11-appendix-graph-sql-mapping %}).
+For how structured data fits a broader knowledge graph architecture, see [Part 6: Dealing with Structured Relational Data]({% post_url 2026-4-11-enterprise-graph-part6-structured-data %}); for query-time translation over bindings, see [Part 11: Appendix — Graph-SQL Mapping]({% post_url 2026-4-14-enterprise-graph-part11-appendix-graph-sql-mapping %}).
 
 # 5. Summary
 
-This post traced a single architectural arc: from the ahead-of-time analytics most enterprises still run, through the Just-In-Time paradigm AI makes possible, to the semantic binding and virtual knowledge graph that make it trustworthy. The table below collects the concepts discussed and how they fit together.
+This post traced one arc: from the ahead-of-time analytics most enterprises still run, through the Just-In-Time paradigm AI makes possible, to the semantic binding and virtual knowledge graph that make it trustworthy.
 
-| Concept | What it means | Role in this architecture |
+| Concept | What it means | Role in the architecture |
 | :--- | :--- | :--- |
-| **Ahead-of-time analytics** | The pre-AI model: ETL → pipeline → dashboard → executive meeting. Questions must be known in advance; answers are materialized before they are asked. | The baseline this post argues against. Optimizes repeated reads of anticipated questions. Pays transformation cost once in batch. |
-| **Just-In-Time Analytics** | Business intelligence at the moment the question is asked — not through a weeks-long ticket and pipeline cycle. | The *when*. Enabled by AI agents that write code, converse in natural language, and support interactive hypothesis probing. Changes org process and analyst skillset, not just speed. |
-| **Semantic binding** | An explicit, durable mapping from a **logical table** (SQL where data lives) to an **ontological entity** (what the organization means by Revenue, Active User, Customer, etc.). | The *mechanism*. Separates who owns definitions (the organization) from who owns composition (the agent). Makes exploration free at the edges while keeping core metrics fixed. |
-| **Ontology** | The formal vocabulary of business concepts and the relationships between them — active user linked to customer, revenue reported on a date. | The meaning layer semantic bindings attach to. Not chosen for graph aesthetics; it is what gives bindings something to bind *to*. |
-| **Virtual knowledge graph** | A traversable graph of entities and relationships that exists as ontology plus bindings — not as a copied dataset in a graph database. | The *consequence*. Logical entailment of JIT analytics plus semantic binding. Graph semantics without graph storage. |
-| **R2RML** | W3C Relational Database to RDF Mapping Language — a standard format for writing semantic bindings (`rr:logicalTable` → `rr:class`). | One way to author bindings and, therefore, the virtual knowledge graph. Makes definitions reviewable, versionable, and machine-readable. |
-| **Logical table** | A SQL query (not necessarily a physical table) that encodes the official definition of a concept — filters, joins, grain included. | The relational side of a semantic binding. The SQL *is* the definition, not an improvisation at query time. |
-| **Raw text-to-SQL** | An LLM writes SQL directly against a raw schema from natural language, with no binding layer. | Useful for ETL exploration and schema orientation — a **helper tool**, not production Just-In-Time Analytics. High risk of plausible but inconsistent answers. |
-| **Composition** | Cohorting, filtering, joining, and time-slicing bound concepts without redefining them — e.g., active users in APAC by signup month. | What agents do at the edges. Distinct from a **definition change**, which requires a new binding and human review. |
-| **Zero-copy architecture** | Data stays in SQL, NoSQL, or lakehouse storage. No ETL into a separate graph database. The graph is logical, not materialized. | What *virtual* means. Eliminates sync lag, duplicate storage, and stale graph copies. |
-| **Materialization** | Copying and transforming data into a pre-built store (warehouse mart, graph database, dashboard view) ahead of query time. | The ahead-of-time default. Pays transformation once; optimizes fast repeated reads of known questions. |
-| **Virtualization** | Translating graph- or semantic-shaped queries against bindings at query time, without copying source data. | Per-query translation cost that was uneconomical for BI dashboards but is now dwarfed by the day-long ETL ticket cycle agents eliminate. |
-| **AI agent** | An LLM-powered tool that writes and executes queries, converses in natural language, and sustains back-and-forth dialogue. | Collapses the analyst → engineer → pipeline bottleneck. Reframes latency: seconds of translation matter less than days of waiting for a new table. |
+| **Ahead-of-time analytics** | ETL → pipeline → dashboard → meeting. Questions must be known in advance; answers are materialized before they are asked. | The baseline this post argues against. Optimizes repeated reads of anticipated questions. |
+| **Just-In-Time Analytics** | BI at the moment the question is asked — not through a weeks-long ticket cycle. | The *when*. Enabled by AI agents that write code, converse, and probe hypotheses. Changes org process and analyst skillset, not just speed. |
+| **Semantic binding** | An explicit, durable mapping from a **logical table** (SQL where data lives) to an **ontological entity** (what the org means by Revenue, Active User, etc.). | The *mechanism*. Separates who owns definitions (the org) from who owns composition (the agent). |
+| **Ontology** | The formal vocabulary of business concepts and how they relate. | The meaning layer bindings attach to — what gives bindings something to bind *to*. |
+| **Virtual knowledge graph** | A traversable graph that exists as ontology plus bindings — not as a copied dataset in a graph database. | The *consequence*. Logical entailment of JIT analytics plus semantic binding. Graph semantics without graph storage. |
+| **R2RML** | W3C Relational-to-RDF Mapping Language for writing bindings (`rr:logicalTable` → `rr:class`). | One way to author bindings, and therefore the virtual knowledge graph. Reviewable, versionable, machine-readable. |
+| **Logical table** | A SQL query (not necessarily a physical table) encoding a concept's official definition — filters, joins, grain included. | The relational side of a binding. The SQL *is* the definition. |
+| **Raw text-to-SQL** | An LLM writes SQL directly against a raw schema, with no binding layer. | An ETL-phase **helper tool**, not production JIT analytics. High risk of plausible but inconsistent answers. |
+| **Composition** | Cohorting, filtering, joining, time-slicing bound concepts without redefining them. | What agents do at the edges. Distinct from a **definition change**, which requires a new binding and review. |
+| **Zero-copy architecture** | Data stays in SQL, NoSQL, or lakehouse storage. No ETL into a graph database. | What *virtual* means. Eliminates sync lag, duplicate storage, stale copies. |
+| **Materialization vs. Virtualization** | Materialize: pre-build a store ahead of time. Virtualize: translate queries against bindings at query time. | Materialization optimizes fast repeated reads of known questions; virtualization optimizes unknown questions asked once, now. |
 
-Three sentences to take away:
-
-**Ahead-of-time analytics** materialized the answers you expected and made you chase the ones you didn't. **Just-In-Time Analytics**, enabled by AI, inverts that timing — but only works if core metrics are grounded in **semantic bindings**, not raw text-to-SQL improvisation. Do that, and a **virtual knowledge graph** is not a product you adopt; it is the logical structure you were already building.
+Three sentences to take away: **Ahead-of-time analytics** materialized the answers you expected and made you chase the ones you didn't. **Just-In-Time Analytics**, enabled by AI, inverts that timing — but only works if core metrics are grounded in **semantic bindings**, not raw text-to-SQL improvisation. Do that, and a **virtual knowledge graph** is not a product you adopt; it is the structure you were already building.
 
 For deeper technical treatment, see the [Enterprise Graph series]({% post_url 2026-4-11-enterprise-graph-part1-intro %}) — especially [Part 6]({% post_url 2026-4-11-enterprise-graph-part6-structured-data %}), [Part 10]({% post_url 2026-4-14-enterprise-graph-part10-appendix-glossary %}), and [Part 11]({% post_url 2026-4-14-enterprise-graph-part11-appendix-graph-sql-mapping %}).
 
 # Appendix: Advanced Semantic Binding
 
-The bindings in Section 3 were deliberately simple — each concept mapped to roughly one logical table. But the whole point of semantic binding is that **a binding is not a mirror of your physical schema**. The number of bindings is driven by how many meaningful concepts exist in the domain, not by how many tables the database administrator created. A single ontological entity can be backed by a join across five tables, an aggregation, a filtered slice, or even a table joined to itself.
-
-This appendix works through four binding patterns that are not one-to-one with tables. For each, we show the R2RML binding (the `rr:sqlQuery` is where the complexity lives), an example SPARQL query against the resulting virtual graph, and — where it clarifies the result — the graph shape or translated SQL.
-
-The reassuring part: in every case, the *SPARQL stays simple*. The complexity is absorbed into the binding, declared once and reviewed once. The agent asking the question never sees the join, the aggregation, or the self-join. It just sees a clean ontological concept.
+The Section 3 bindings were deliberately simple — roughly one concept per table. But a binding is **not a mirror of your physical schema**: the number of bindings is driven by how many meaningful concepts exist, not how many tables. One entity can be backed by a five-table join, an aggregation, a filtered slice, or a self-join. In every pattern below the *SPARQL stays simple* — the complexity is absorbed into the binding, declared and reviewed once.
 
 ## A.1 — JOIN-collapsed binding (many tables → one concept)
 
-A common pattern: the domain concept "Order" is a single idea, but the physical data is normalized across `orders`, `order_line_items`, `products`, and `customers`. Rather than expose four tables, one binding collapses the join and presents a single `ex:Order` entity with the attributes that matter to the business.
+The concept "Order" is a single idea, but the data is normalized across `orders`, `order_line_items`, `products`, and `customers`. One binding collapses the join into a single `ex:Order` entity.
+
+<details markdown="1">
+<summary><b>R2RML — JOIN-collapsed Order binding</b></summary>
 
 ```turtle
 <#Order>
@@ -544,7 +486,12 @@ A common pattern: the domain concept "Order" is a single idea, but the physical 
     ] .
 ```
 
-The four-table join, the line-item summation, and the `status = 'completed'` filter all live inside the binding. The agent querying for orders over $500 writes this:
+</details>
+
+The join, the line-item summation, and the `status = 'completed'` filter all live inside the binding. The agent querying for orders over $500 writes:
+
+<details markdown="1">
+<summary><b>SPARQL — orders over $500</b></summary>
 
 ```sparql
 PREFIX ex: <http://example.com/ontology#>
@@ -558,11 +505,16 @@ WHERE {
 }
 ```
 
-No mention of `order_line_items` or `products`. The join was a binding-author decision; the agent just sees `ex:Order`. This is the **JOIN-collapsed** strategy — powerful for read-simplicity, with the trade-off that the constituent tables (a single line item, a single product) are no longer first-class entities in the graph unless separately bound.
+</details>
+
+No mention of `order_line_items` or `products` — the join was a binding-author decision. The trade-off: the constituent tables are no longer first-class entities unless separately bound.
 
 ## A.2 — Aggregation binding (a rollup becomes an entity)
 
-Sometimes the concept *is* an aggregate. "Monthly Recurring Revenue" or "Regional Sales Summary" has no single source row — it is a `GROUP BY`. The binding can mint an entity per aggregation group, turning a rollup into addressable graph nodes.
+Sometimes the concept *is* an aggregate. "Monthly Recurring Revenue" or "Regional Sales Summary" has no single source row — it is a `GROUP BY`. The binding mints an entity per aggregation group, turning a rollup into addressable nodes.
+
+<details markdown="1">
+<summary><b>R2RML — RegionalSalesSummary aggregation binding</b></summary>
 
 ```turtle
 <#RegionalSalesSummary>
@@ -605,7 +557,12 @@ Sometimes the concept *is* an aggregate. "Monthly Recurring Revenue" or "Regiona
     ] .
 ```
 
-The subject IRI template `{region}/{sales_month}` is the key trick: each aggregation group becomes a distinct, dereferenceable node. A query for the top regions in a month:
+</details>
+
+The subject IRI template `{region}/{sales_month}` is the trick: each aggregation group becomes a distinct, dereferenceable node. A query for the top regions in a month:
+
+<details markdown="1">
+<summary><b>SPARQL — top regions by revenue</b></summary>
 
 ```sparql
 PREFIX ex: <http://example.com/ontology#>
@@ -620,7 +577,9 @@ WHERE {
 ORDER BY DESC(?revenue)
 ```
 
-The graph that results is a set of summary nodes — note that these nodes never existed as rows anywhere; they are materialized by the binding at query time:
+</details>
+
+The result is a set of summary nodes that never existed as rows — they are materialized by the binding at query time:
 
 <div style="display: flex; justify-content: center; margin: 2rem 0;">
 <svg viewBox="0 0 640 260" width="100%" style="max-width: 640px; font-family: sans-serif; background: #fafafa; border: 1px solid #e0e0e0; border-radius: 8px;">
@@ -645,11 +604,14 @@ The graph that results is a set of summary nodes — note that these nodes never
 </svg>
 </div>
 
-The aggregation binding is how you give a name and an identity to something that is fundamentally a computation. The grain is a deliberate modeling choice baked into the `GROUP BY`.
+The aggregation binding gives a name and identity to something that is fundamentally a computation; the grain is a deliberate choice baked into the `GROUP BY`.
 
 ## A.3 — Filtered bindings (one table → several subclasses)
 
-A single physical table can back several ontological classes, each defined by a filter. This is the **role-filtered** pattern from Section 3's binding-strategy table, made concrete. The `employees` table has a `role` column; rather than expose `role` as a raw property, we promote the distinction into class membership.
+A single physical table can back several ontological classes, each defined by a filter. The `employees` table has a `role` column; rather than expose `role` as a raw property, we promote the distinction into class membership.
+
+<details markdown="1">
+<summary><b>R2RML — Manager / IndividualContributor filtered bindings</b></summary>
 
 ```turtle
 # Both classes draw from the SAME employees table, differing only by filter.
@@ -691,7 +653,12 @@ A single physical table can back several ontological classes, each defined by a 
     ] .
 ```
 
-With the ontology declaring both `ex:Manager` and `ex:IndividualContributor` as subclasses of `ex:Employee`, an OBDA engine with OWL 2 QL reasoning expands a query for the parent class to span both bindings. So "list everyone" stays a one-liner:
+</details>
+
+With the ontology declaring both `ex:Manager` and `ex:IndividualContributor` as subclasses of `ex:Employee`, an OBDA engine with OWL 2 QL reasoning expands a parent-class query across both bindings, so "list everyone" stays a one-liner:
+
+<details markdown="1">
+<summary><b>SPARQL — list every employee</b></summary>
 
 ```sparql
 PREFIX ex: <http://example.com/ontology#>
@@ -703,13 +670,18 @@ WHERE {
 }
 ```
 
-To target just one role, query the subclass directly (`?emp a ex:Manager`). The filter that distinguishes them lives in the binding, not in the query. A subtle but important consequence: because `ex:Manager` carries a different outgoing edge (`ex:manages`) than `ex:IndividualContributor` (`ex:worksIn`), the *role distinction is now encoded in the graph topology itself* rather than as a string property — which is exactly what makes ontological reasoning over it possible.
+</details>
 
-> For a deeper treatment of how subclass reasoning interacts with filtered bindings — including the pitfall where a `schema:Person` query unexpectedly includes or excludes a subclass depending on whether reasoning is enabled — see [Part 11: Appendix — Graph-SQL Mapping]({% post_url 2026-4-14-enterprise-graph-part11-appendix-graph-sql-mapping %}).
+To target one role, query the subclass directly (`?emp a ex:Manager`). The filter lives in the binding, not the query. And because `ex:Manager` carries a different outgoing edge (`ex:manages`) than `ex:IndividualContributor` (`ex:worksIn`), the *role distinction is encoded in graph topology itself* rather than as a string property — which is what makes ontological reasoning over it possible.
+
+> For how subclass reasoning interacts with filtered bindings — including the pitfall where a `schema:Person` query unexpectedly includes or excludes a subclass depending on whether reasoning is enabled — see [Part 11: Appendix — Graph-SQL Mapping]({% post_url 2026-4-14-enterprise-graph-part11-appendix-graph-sql-mapping %}).
 
 ## A.4 — Self-join binding (a table related to itself)
 
-Hierarchies are the classic case: an `employees` table where each row has a `manager_id` pointing at another row in the same table. The relationship "reports to" is a self-join. A binding can expose this as a clean `ex:reportsTo` edge between `ex:Employee` nodes.
+Hierarchies are the classic case: an `employees` table where each row's `manager_id` points at another row in the same table. The "reports to" relationship is a self-join, exposed as a clean `ex:reportsTo` edge.
+
+<details markdown="1">
+<summary><b>R2RML — self-join reporting-line binding</b></summary>
 
 ```turtle
 <#ReportingLine>
@@ -736,7 +708,12 @@ Hierarchies are the classic case: an `employees` table where each row has a `man
     ] .
 ```
 
-The self-join `e JOIN m ON e.manager_id = m.employee_id` is hidden behind a single predicate. Now graph traversal does what recursive SQL would otherwise require. "Who reports to Alice, directly or transitively?" becomes a property-path query:
+</details>
+
+The self-join is hidden behind a single predicate. "Who reports to Alice, directly or transitively?" becomes a property-path query:
+
+<details markdown="1">
+<summary><b>SPARQL — transitive reports-to (property path)</b></summary>
 
 ```sparql
 PREFIX ex: <http://example.com/ontology#>
@@ -747,7 +724,9 @@ WHERE {
 }
 ```
 
-The `ex:reportsTo+` property path walks the chain to any depth — the kind of recursive traversal that is awkward in plain SQL but natural in a graph. The resulting structure is a reporting tree:
+</details>
+
+The `ex:reportsTo+` property path walks the chain to any depth — recursion that is awkward in plain SQL but natural in a graph:
 
 <div style="display: flex; justify-content: center; margin: 2rem 0;">
 <svg viewBox="0 0 560 300" width="100%" style="max-width: 560px; font-family: sans-serif; background: #fafafa; border: 1px solid #e0e0e0; border-radius: 8px;">
@@ -781,11 +760,14 @@ The `ex:reportsTo+` property path walks the chain to any depth — the kind of r
 </svg>
 </div>
 
-## A.5 — One query across every binding (the graph as a graph)
+## A.5 — One query across every binding
 
-Each pattern above produced a small, local graph. The real payoff comes when a single question traverses *all of them at once* — join-collapsed orders, an aggregation summary, role-filtered employees, and a self-joined reporting line — and the virtual knowledge graph stitches them into one connected structure.
+Each pattern above produced a small, local graph. The payoff comes when one question traverses *all of them at once* and the virtual graph stitches them into one connected structure.
 
-Consider an executive's Just-In-Time question: **"For our APAC sales department, show the manager, the individual contributors who report to them, the customers each rep serves, the high-value orders those customers placed, and tie it to the regional sales summary."** No dashboard was ever built for this. In the ahead-of-time world it would be a multi-day, multi-table modeling project. Against the virtual graph it is one query — and crucially, it still reads in clean ontological terms, even though under the hood it touches a four-table join (`ex:Order`), an aggregation (`ex:RegionalSalesSummary`), two filtered subclasses (`ex:Manager`, `ex:IndividualContributor`), and a self-join (`ex:reportsTo`).
+Consider: **"For our APAC sales department, show the manager, the individual contributors who report to them, the customers each rep serves, the high-value orders those customers placed, and tie it to the regional sales summary."** No dashboard was built for this; in the ahead-of-time world it would be a multi-day modeling project. Against the virtual graph it is one query that reads in clean ontological terms — even though under the hood it touches a four-table join, an aggregation, two filtered subclasses, and a self-join.
+
+<details markdown="1">
+<summary><b>SPARQL — one query across every binding</b></summary>
 
 ```sparql
 PREFIX ex: <http://example.com/ontology#>
@@ -821,9 +803,9 @@ WHERE {
 }
 ```
 
-Every binding family appears in a single graph pattern. The engine reformulates this into a SQL statement that — once unfolded — contains the four-table order join, the region-month aggregation, two role filters, and a self-join of `employees`. That generated SQL would be dozens of lines and genuinely unpleasant to write by hand. The SPARQL is twenty lines of plain concept traversal.
+</details>
 
-And the result is unmistakably a *graph* — not a flat table, but a connected web of differently-typed nodes and labeled edges:
+The engine reformulates this into SQL containing the four-table order join, the region-month aggregation, two role filters, and a self-join — dozens of unpleasant lines. The SPARQL is twenty lines of concept traversal. And the result is unmistakably a *graph*:
 
 <div style="display: flex; justify-content: center; margin: 2rem 0;">
 <svg viewBox="0 0 800 640" width="100%" style="max-width: 800px; font-family: sans-serif; background: #fafafa; border: 1px solid #e0e0e0; border-radius: 8px;">
@@ -944,13 +926,13 @@ And the result is unmistakably a *graph* — not a flat table, but a connected w
 </svg>
 </div>
 
-This is the moment the abstraction earns its name. Six node types, seven edge types, an aggregation that exists only as a `GROUP BY`, a hierarchy that exists only as a self-join — all woven into one navigable structure that no single physical table contains. The executive never knew (and never needed to know) that `ex:Order` was a four-table collapse or that `ex:reportsTo` was a self-join. They asked one question in domain terms. The bindings did the rest, and the answer came back shaped like what it actually is: **a graph**.
+Six node types, seven edge types, an aggregation that exists only as a `GROUP BY`, a hierarchy that exists only as a self-join — woven into one structure no single physical table contains. The executive never needed to know that `ex:Order` was a four-table collapse or `ex:reportsTo` a self-join. They asked one question in domain terms; the answer came back shaped like what it is: **a graph**.
 
 ## The common thread
 
-Across all five patterns, the same principle holds: **complexity belongs in the binding, simplicity belongs in the query.** A JOIN, an aggregation, a filter, or a self-join is a one-time authoring decision made by someone who understands the domain. Once bound, the concept is clean — `ex:Order`, `ex:RegionalSalesSummary`, `ex:Manager`, `ex:reportsTo` — and the agent (or the executive at Starbucks) composes questions over those clean concepts without ever touching the underlying schema.
+Across all five patterns the same principle holds: **complexity belongs in the binding, simplicity belongs in the query.** A join, aggregation, filter, or self-join is a one-time authoring decision by someone who understands the domain. Once bound, the concept is clean, and the agent composes questions over clean concepts without ever touching the schema.
 
-That is the deeper reason semantic binding is not a 1-to-1 mirror of tables. It is a domain-driven *interpretation* of the data — and the virtual knowledge graph is what that interpretation looks like once it is made explicit. For the canonical worked example of three different binding strategies over the same two tables, see [Part 11: Appendix — Graph-SQL Mapping]({% post_url 2026-4-14-enterprise-graph-part11-appendix-graph-sql-mapping %}).
+That is why semantic binding is not a 1-to-1 mirror of tables: it is a domain-driven *interpretation* of the data, and the virtual knowledge graph is what that interpretation looks like once made explicit. For the canonical worked example of three binding strategies over the same two tables, see [Part 11: Appendix — Graph-SQL Mapping]({% post_url 2026-4-14-enterprise-graph-part11-appendix-graph-sql-mapping %}).
 
 ---
 **Related posts:**
