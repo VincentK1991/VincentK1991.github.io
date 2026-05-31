@@ -54,7 +54,7 @@ What makes this possible now is AI — LLMs and agentic tools with three capabil
 *   **Interface in natural language** — people who don't write code still get rigorous answers.
 *   **Probe interactively** — reformulate a question, validate a hunch, follow a thread of exploration in real time.
 
-Picture a CEO at a Starbucks before a flight, wondering why churn ticked up in a segment that looked stable. In the ahead-of-time model that curiosity becomes a day Slack thread that starts a multi-day chase. In the Just-In-Time model, they type the question in plain language; the agent finds the data, writes and runs the query, and summarizes. By the time the barista calls their name, they have a working hypothesis.
+Picture a CEO at a Starbucks before a flight, wondering why churn ticked up in a segment that looked stable. In the ahead-of-time model that curiosity becomes a day Slack thread that starts a multi-day chase. In the Just-In-Time model, they type the question in plain language; the agent finds the data, writes and runs the query, and summarizes.
 
 
 ## What Just-In-Time Analytics is not
@@ -406,9 +406,7 @@ If virtualization is so elegant, why wasn't everyone doing it?
 
 **AI reverses the accounting.** ETL tooling is mature; assembling data in batch is no longer the bottleneck. The bottleneck is **how fast an unanticipated question can be answered** — one no dashboard was built for. In Section 1 that cost a day at minimum, often a week. Virtualization adds seconds per query; the old ETL cycle costs days per question. With bindings and a virtual graph, the same hypothesis — *is the drop concentrated in APAC?* — is explored in minutes, with no ticket and no new pipeline.
 
-It also reframes latency. In the BI era, slicing a pre-built view in one second set the expectation, so virtualization's extra seconds felt like a regression. In the agentic era the user waits thirty seconds to a minute for an answer to stream back; ten more seconds for translation barely registers. **Query latency is the wrong thing to optimize** — waiting a day for someone to build the table is the real cost.
-
-Materialization optimized for repeated reads of known questions; virtualization optimizes for unknown questions asked once, right now — exactly what agents and executives at Starbucks keep asking.
+It also reframes latency. In the BI era, slicing a pre-built view in one second set the expectation, so virtualization's extra seconds felt like a regression. In the agentic era the user waits thirty seconds to a minute for an answer to stream back; ten more seconds for translation barely registers. **Query latency is the wrong thing to optimize — time-to-insight is.** Shaving seconds off a query is a rounding error next to the days it takes to build the table.
 
 For how structured data fits a broader knowledge graph architecture, see [Part 6: Dealing with Structured Relational Data]({% post_url 2026-4-11-enterprise-graph-part6-structured-data %}); for query-time translation over bindings, see [Part 11: Appendix — Graph-SQL Mapping]({% post_url 2026-4-14-enterprise-graph-part11-appendix-graph-sql-mapping %}).
 
@@ -429,8 +427,6 @@ This post traced one arc: from the ahead-of-time analytics most enterprises stil
 | **Composition** | Cohorting, filtering, joining, time-slicing bound concepts without redefining them. | What agents do at the edges. Distinct from a **definition change**, which requires a new binding and review. |
 | **Zero-copy architecture** | Data stays in SQL, NoSQL, or lakehouse storage. No ETL into a graph database. | What *virtual* means. Eliminates sync lag, duplicate storage, stale copies. |
 | **Materialization vs. Virtualization** | Materialize: pre-build a store ahead of time. Virtualize: translate queries against bindings at query time. | Materialization optimizes fast repeated reads of known questions; virtualization optimizes unknown questions asked once, now. |
-
-Three sentences to take away: **Ahead-of-time analytics** materialized the answers you expected and made you chase the ones you didn't. **Just-In-Time Analytics**, enabled by AI, inverts that timing — but only works if core metrics are grounded in **semantic bindings**, not raw text-to-SQL improvisation. Do that, and a **virtual knowledge graph** is not a product you adopt; it is the structure you were already building.
 
 For deeper technical treatment, see the [Enterprise Graph series]({% post_url 2026-4-11-enterprise-graph-part1-intro %}) — especially [Part 6]({% post_url 2026-4-11-enterprise-graph-part6-structured-data %}), [Part 10]({% post_url 2026-4-14-enterprise-graph-part10-appendix-glossary %}), and [Part 11]({% post_url 2026-4-14-enterprise-graph-part11-appendix-graph-sql-mapping %}).
 
